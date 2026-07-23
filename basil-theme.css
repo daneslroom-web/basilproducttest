@@ -1,0 +1,459 @@
+/* ==========================================================================
+   BASIL — Manager Dashboard Theme
+   A theme layer over Bootstrap 5. Load AFTER bootstrap.min.css.
+   Fonts: Fraunces (display) · Inter Tight (body) · JetBrains Mono (labels)
+   ========================================================================== */
+
+:root {
+  /* Palette */
+  --basil-bone: #f6f2ea;
+  --basil-paper: #fdfbf7;
+  --basil-ink: #2b2620;
+  --basil-ink-soft: #6b6257;
+  --basil-terracotta: #c44d36;
+  --basil-terracotta-deep: #a03a27;
+  --basil-terracotta-tint: #f7e6e1;
+  --basil-olive: #5d6c3c;
+  --basil-olive-tint: #eef0e4;
+  --basil-gold: #b8923a;
+  --basil-gold-tint: #f6eeda;
+  --basil-line: #e3dccf;
+
+  /* Allergen states */
+  --state-contains: var(--basil-terracotta);
+  --state-free: var(--basil-olive);
+  --state-unverified: var(--basil-gold);
+
+  /* Bootstrap overrides */
+  --bs-body-bg: var(--basil-bone);
+  --bs-body-color: var(--basil-ink);
+  --bs-body-font-family: "Inter Tight", system-ui, sans-serif;
+  --bs-border-color: var(--basil-line);
+  --bs-primary: var(--basil-terracotta);
+  --bs-primary-rgb: 196, 77, 54;
+  --bs-success: var(--basil-olive);
+  --bs-success-rgb: 93, 108, 60;
+  --bs-warning: var(--basil-gold);
+  --bs-warning-rgb: 184, 146, 58;
+  --bs-link-color: var(--basil-terracotta-deep);
+  --bs-link-hover-color: var(--basil-terracotta);
+}
+
+body {
+  background: var(--basil-bone);
+  color: var(--basil-ink);
+  font-family: "Inter Tight", system-ui, sans-serif;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Type roles ---------- */
+
+.display-font,
+h1, h2, .h1, .h2 {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.mono-label {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.68rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--basil-ink-soft);
+}
+
+.roman {
+  font-family: "Fraunces", Georgia, serif;
+  font-weight: 400;
+  font-style: italic;
+  color: var(--basil-terracotta);
+}
+
+/* ---------- Buttons ---------- */
+
+.btn { border-radius: 0.35rem; font-weight: 500; }
+
+.btn-primary {
+  --bs-btn-bg: var(--basil-terracotta);
+  --bs-btn-border-color: var(--basil-terracotta);
+  --bs-btn-hover-bg: var(--basil-terracotta-deep);
+  --bs-btn-hover-border-color: var(--basil-terracotta-deep);
+  --bs-btn-active-bg: var(--basil-terracotta-deep);
+  --bs-btn-active-border-color: var(--basil-terracotta-deep);
+}
+
+.btn-outline-primary {
+  --bs-btn-color: var(--basil-terracotta);
+  --bs-btn-border-color: var(--basil-terracotta);
+  --bs-btn-hover-bg: var(--basil-terracotta);
+  --bs-btn-hover-border-color: var(--basil-terracotta);
+  --bs-btn-active-bg: var(--basil-terracotta);
+  --bs-btn-active-border-color: var(--basil-terracotta);
+}
+
+.btn-olive {
+  --bs-btn-bg: var(--basil-olive);
+  --bs-btn-border-color: var(--basil-olive);
+  --bs-btn-color: #fff;
+  --bs-btn-hover-bg: #4c5931;
+  --bs-btn-hover-border-color: #4c5931;
+  --bs-btn-hover-color: #fff;
+}
+
+/* ---------- Cards ---------- */
+
+.card {
+  border: 1px solid var(--basil-line);
+  border-radius: 0.6rem;
+  background: var(--basil-paper);
+}
+
+.card-header {
+  background: var(--basil-paper);
+  border-bottom: 1px solid var(--basil-line);
+}
+
+/* ---------- Nav pills (tab bar) ---------- */
+
+.basil-tabs {
+  border-bottom: 1px solid var(--basil-line);
+  gap: 0.25rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.basil-tabs::-webkit-scrollbar { display: none; }
+
+.basil-tabs .nav-link {
+  color: var(--basil-ink-soft);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  padding: 0.75rem 1rem;
+  white-space: nowrap;
+}
+
+.basil-tabs .nav-link.active {
+  background: transparent;
+  color: var(--basil-terracotta);
+  border-bottom-color: var(--basil-terracotta);
+}
+
+.basil-tabs .nav-link:hover { color: var(--basil-ink); }
+
+/* ---------- Side menu ---------- */
+
+.basil-sidebar {
+  background: var(--basil-ink);
+  color: var(--basil-bone);
+  width: 240px;
+  min-height: 100vh;
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 1040;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease;
+}
+
+.basil-sidebar .brand {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--basil-bone);
+  padding: 1.35rem 1.5rem 1.1rem;
+  border-bottom: 1px solid rgba(246, 242, 234, 0.12);
+  text-decoration: none;
+  display: block;
+}
+.basil-sidebar .brand .leaf { color: var(--basil-terracotta); }
+
+.basil-sidebar .nav-section {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(246, 242, 234, 0.45);
+  padding: 1.25rem 1.5rem 0.4rem;
+}
+
+.basil-sidebar .nav-link {
+  color: rgba(246, 242, 234, 0.78);
+  padding: 0.55rem 1.5rem;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  border-left: 3px solid transparent;
+}
+
+.basil-sidebar .nav-link i { font-size: 1rem; width: 1.1rem; text-align: center; }
+
+.basil-sidebar .nav-link:hover {
+  color: var(--basil-bone);
+  background: rgba(246, 242, 234, 0.06);
+}
+
+.basil-sidebar .nav-link.active {
+  color: var(--basil-bone);
+  border-left-color: var(--basil-terracotta);
+  background: rgba(196, 77, 54, 0.16);
+}
+
+.basil-sidebar .sidebar-foot {
+  margin-top: auto;
+  padding: 1rem 1.5rem 1.25rem;
+  border-top: 1px solid rgba(246, 242, 234, 0.12);
+  font-size: 0.8rem;
+  color: rgba(246, 242, 234, 0.55);
+}
+
+.basil-main {
+  margin-left: 240px;
+  min-height: 100vh;
+  padding: 1.5rem 2rem 4rem;
+}
+
+/* Mobile / tablet: sidebar slides in */
+@media (max-width: 991.98px) {
+  .basil-sidebar { transform: translateX(-100%); }
+  .basil-sidebar.open { transform: translateX(0); box-shadow: 0 0 40px rgba(0,0,0,0.35); }
+  .basil-main { margin-left: 0; padding: 1rem 1rem 4rem; }
+  .sidebar-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(43, 38, 32, 0.5);
+    z-index: 1035;
+    opacity: 0; pointer-events: none;
+    transition: opacity 0.25s ease;
+  }
+  .sidebar-backdrop.show { opacity: 1; pointer-events: auto; }
+}
+
+.sidebar-toggle {
+  border: 1px solid var(--basil-line);
+  background: var(--basil-paper);
+  border-radius: 0.4rem;
+  padding: 0.4rem 0.65rem;
+}
+@media (min-width: 992px) { .sidebar-toggle { display: none; } }
+
+/* ---------- Venue masthead ---------- */
+
+.venue-masthead {
+  background: var(--basil-paper);
+  border: 1px solid var(--basil-line);
+  border-radius: 0.6rem;
+  padding: 1.5rem 1.75rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.venue-mark {
+  width: 64px; height: 64px;
+  border-radius: 0.5rem;
+  background: var(--basil-terracotta);
+  color: #fff;
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.75rem;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+
+.venue-masthead h1 { font-size: 1.85rem; margin: 0; }
+
+.venue-meta {
+  display: flex; gap: 1.5rem; flex-wrap: wrap;
+  margin-left: auto;
+}
+
+.venue-stat { text-align: right; }
+.venue-stat .num {
+  font-family: "Fraunces", Georgia, serif;
+  font-size: 1.5rem; font-weight: 600; line-height: 1.1;
+}
+.venue-stat .num.warn { color: var(--basil-gold); }
+.venue-stat .num.ok { color: var(--basil-olive); }
+
+/* ---------- Allergen states (the signature system) ---------- */
+
+.state-badge {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.08em;
+  padding: 0.22rem 0.5rem;
+  border-radius: 0.3rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  white-space: nowrap;
+}
+
+.state-contains { background: var(--basil-terracotta-tint); color: var(--basil-terracotta-deep); }
+.state-free { background: var(--basil-olive-tint); color: var(--basil-olive); }
+.state-unverified {
+  background: var(--basil-gold-tint);
+  color: #8a6a24;
+  border: 1px dashed var(--basil-gold);
+}
+
+.review-strip {
+  background: var(--basil-gold-tint);
+  border: 1px solid var(--basil-gold);
+  border-radius: 0.6rem;
+  padding: 0.9rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+.review-strip i { color: var(--basil-gold); font-size: 1.3rem; }
+
+/* Allergen segmented control (in Knowledge modal) */
+.allergen-row {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--basil-line);
+}
+.allergen-row:last-child { border-bottom: 0; }
+
+.tri-state { display: inline-flex; border: 1px solid var(--basil-line); border-radius: 0.4rem; overflow: hidden; }
+.tri-state button {
+  border: 0; background: var(--basil-paper);
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.62rem; letter-spacing: 0.06em;
+  padding: 0.35rem 0.6rem;
+  color: var(--basil-ink-soft);
+  cursor: pointer;
+}
+.tri-state button + button { border-left: 1px solid var(--basil-line); }
+.tri-state button.sel-contains { background: var(--basil-terracotta); color: #fff; }
+.tri-state button.sel-free { background: var(--basil-olive); color: #fff; }
+.tri-state button.sel-unverified { background: var(--basil-gold); color: #fff; }
+
+/* ---------- Menu cards ---------- */
+
+.menu-card { margin-bottom: 1rem; }
+.menu-card .menu-card-body { display: none; }
+.menu-card.open .menu-card-body { display: block; }
+.menu-card.open .toggle-menu i { transform: rotate(180deg); }
+.toggle-menu i { transition: transform 0.2s ease; display: inline-block; }
+
+.menu-item-row {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  gap: 1rem;
+  padding: 0.85rem 0.25rem;
+  border-bottom: 1px solid var(--basil-line);
+}
+.menu-item-row:last-child { border-bottom: 0; }
+
+.item-price {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+
+.knowledge-frame {
+  background: var(--basil-bone);
+  border: 1px solid var(--basil-line);
+  border-radius: 0.5rem;
+  margin: 0.35rem 0 0.85rem;
+  padding: 0.85rem 1rem;
+}
+
+/* ---------- Tier system ---------- */
+
+.tier-pill {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.06em;
+  padding: 0.22rem 0.55rem;
+  border-radius: 1rem;
+  white-space: nowrap;
+}
+.tier-1 { background: var(--basil-olive-tint); color: var(--basil-olive); }
+.tier-2 { background: var(--basil-gold-tint); color: #8a6a24; }
+.tier-3 { background: var(--basil-terracotta-tint); color: var(--basil-terracotta-deep); }
+
+.tier-select {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.72rem;
+  border: 1px solid var(--basil-line);
+  border-radius: 0.35rem;
+  background: var(--basil-paper);
+  padding: 0.25rem 0.4rem;
+}
+
+/* ---------- Progress ---------- */
+
+.progress { background: var(--basil-line); border-radius: 1rem; height: 8px; }
+.progress-bar { background: var(--basil-olive); border-radius: 1rem; }
+.progress-bar.low { background: var(--basil-terracotta); }
+.progress-bar.mid { background: var(--basil-gold); }
+
+/* ---------- Tables ---------- */
+
+.basil-table { --bs-table-bg: transparent; }
+.basil-table th {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--basil-ink-soft);
+  font-weight: 500;
+  border-bottom: 1px solid var(--basil-line) !important;
+}
+.basil-table td { border-color: var(--basil-line); vertical-align: middle; }
+
+/* ---------- Marco event feed ---------- */
+
+.event-row {
+  display: flex; gap: 0.85rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--basil-line);
+  font-size: 0.9rem;
+}
+.event-row:last-child { border-bottom: 0; }
+.event-row .event-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  margin-top: 0.45rem; flex-shrink: 0;
+}
+.dot-terracotta { background: var(--basil-terracotta); }
+.dot-gold { background: var(--basil-gold); }
+.dot-olive { background: var(--basil-olive); }
+
+.event-meta {
+  font-family: "JetBrains Mono", ui-monospace, monospace;
+  font-size: 0.62rem;
+  color: var(--basil-ink-soft);
+  letter-spacing: 0.05em;
+}
+
+/* ---------- Empty states ---------- */
+
+.empty-state { text-align: center; padding: 3.5rem 1rem; }
+.empty-state i { font-size: 2.5rem; color: var(--basil-line); }
+.empty-state h5 { font-family: "Fraunces", Georgia, serif; margin-top: 0.75rem; }
+
+/* ---------- Modals ---------- */
+
+.modal-content { border: 1px solid var(--basil-line); border-radius: 0.6rem; background: var(--basil-paper); }
+.modal-header { border-bottom: 1px solid var(--basil-line); }
+.modal-footer { border-top: 1px solid var(--basil-line); }
+.modal-title { font-family: "Fraunces", Georgia, serif; }
+
+/* ---------- Focus & motion ---------- */
+
+:focus-visible { outline: 2px solid var(--basil-terracotta); outline-offset: 2px; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

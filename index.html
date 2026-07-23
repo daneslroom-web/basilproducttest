@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Il Forno — Restaurant · Basil</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/basil-theme.css">
+</head>
+<body>
+
+<!-- ======================= SIDE MENU ======================= -->
+<nav class="basil-sidebar" id="sidebar" aria-label="Main navigation">
+  <a class="brand" href="#">Basil<span class="leaf">.</span></a>
+
+  <div class="nav-section">Workspace</div>
+  <a class="nav-link" href="#"><i class="bi bi-grid-1x2"></i> Dashboard</a>
+  <a class="nav-link active" href="#"><i class="bi bi-shop"></i> Restaurants</a>
+  <a class="nav-link" href="#"><i class="bi bi-people"></i> All staff</a>
+
+  <div class="nav-section">Account</div>
+  <a class="nav-link" href="#"><i class="bi bi-credit-card"></i> Billing</a>
+  <a class="nav-link" href="#"><i class="bi bi-gear"></i> Settings</a>
+  <a class="nav-link" href="#"><i class="bi bi-question-circle"></i> Help</a>
+
+  <div class="sidebar-foot">
+    Maria Rossi<br>
+    <span class="mono-label">Owner · 2 venues</span>
+  </div>
+</nav>
+<div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+<!-- ======================= MAIN ======================= -->
+<main class="basil-main">
+
+  <!-- Top bar (mobile toggle + breadcrumb) -->
+  <div class="d-flex align-items-center gap-3 mb-3">
+    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">
+      <i class="bi bi-list fs-5"></i>
+    </button>
+    <div class="mono-label">
+      <a href="#" class="text-decoration-none" style="color:inherit">Restaurants</a>
+      <span class="mx-1">/</span>
+      <span style="color:var(--basil-terracotta)">Il Forno</span>
+    </div>
+  </div>
+
+  <!-- Venue masthead -->
+  <div class="venue-masthead mb-3">
+    <div class="venue-mark">IF</div>
+    <div>
+      <h1>Il Forno</h1>
+      <div class="mono-label mt-1">Trattoria · Table service · Lagos, Algarve</div>
+    </div>
+    <div class="venue-meta">
+      <div class="venue-stat">
+        <div class="num">8</div>
+        <div class="mono-label">Staff</div>
+      </div>
+      <div class="venue-stat">
+        <div class="num ok">74%</div>
+        <div class="mono-label">Trained</div>
+      </div>
+      <div class="venue-stat">
+        <div class="num warn">3</div>
+        <div class="mono-label">Unverified</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabs -->
+  <ul class="nav nav-pills basil-tabs mb-4" id="restaurantTabs" role="tablist">
+    <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#menus">Menus</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#training">Training</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#staff">Staff</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#analytics">Analytics</button></li>
+    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#settings">Settings</button></li>
+  </ul>
+
+  <div class="tab-content">
+
+    <!-- ======================= MENUS TAB ======================= -->
+    <div class="tab-pane fade show active" id="menus">
+
+      <!-- Allergen review strip — the safety loop, always visible when work is outstanding -->
+      <div class="review-strip mb-3">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        <div class="flex-grow-1">
+          <strong>3 dishes have unverified allergens.</strong>
+          <span class="d-block d-sm-inline text-muted">Until verified, staff are trained to check with the kitchen — not to reassure guests.</span>
+        </div>
+        <button class="btn btn-sm btn-olive"><i class="bi bi-clipboard-check me-1"></i>Review now</button>
+      </div>
+
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h4 class="mb-0 h5 display-font">Menus</h4>
+          <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newMenuModal">
+            <i class="bi bi-plus-circle me-1"></i>New menu
+          </button>
+        </div>
+        <div class="card-body">
+
+          <!-- ===== MAIN MENU (open) ===== -->
+          <div class="card menu-card open" data-menu-id="1">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div>
+                <h5 class="mb-1">Main Menu</h5>
+                <span class="badge rounded-pill bg-success">Active</span>
+                <span class="mono-label ms-2">v4 · updated 21 Jul</span>
+              </div>
+              <div class="d-flex align-items-center">
+                <button class="btn btn-outline-primary btn-sm me-2" title="Edit menu"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-outline-danger btn-sm me-2" title="Delete menu"><i class="bi bi-trash3"></i></button>
+                <button class="btn btn-outline-secondary btn-sm toggle-menu"><i class="bi bi-chevron-down"></i></button>
+              </div>
+            </div>
+            <div class="menu-card-body card-body">
+
+              <div class="text-end mb-3">
+                <button class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-1"></i>Add section</button>
+              </div>
+
+              <!-- SECTION: Antipasti -->
+              <div class="card border shadow-sm mb-3">
+                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                  <strong><span class="roman me-2">I.</span>Antipasti</strong>
+                  <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
+                </div>
+                <div class="card-body pt-2">
+
+                  <div class="menu-item-row">
+                    <div>
+                      <strong>Bruschetta al Pomodoro</strong>
+                      <div class="text-muted small">Grilled bread, marinated tomatoes, basil, garlic oil</div>
+                      <div class="mt-1">
+                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>GLUTEN</span>
+                        <span class="state-badge state-free"><i class="bi bi-check"></i>DAIRY-FREE</span>
+                        <span class="state-badge state-free"><i class="bi bi-check"></i>NUT-FREE</span>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="item-price">€7.50</span>
+                      <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
+                    </div>
+                  </div>
+
+                  <div class="menu-item-row">
+                    <div>
+                      <strong>Burrata con Prosciutto</strong>
+                      <div class="text-muted small">Creamy burrata, 18-month prosciutto, rocket, aged balsamic</div>
+                      <div class="mt-1">
+                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>DAIRY</span>
+                        <span class="state-badge state-unverified"><i class="bi bi-question-lg"></i>NUTS — UNVERIFIED</span>
+                        <span class="state-badge state-unverified"><i class="bi bi-question-lg"></i>SULPHITES — UNVERIFIED</span>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="item-price">€12.00</span>
+                      <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- SECTION: Pizza -->
+              <div class="card border shadow-sm mb-3">
+                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                  <strong><span class="roman me-2">II.</span>Pizza</strong>
+                  <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
+                </div>
+                <div class="card-body pt-2">
+
+                  <div class="menu-item-row">
+                    <div>
+                      <strong>Margherita</strong>
+                      <div class="text-muted small">San Marzano tomato, fior di latte, basil. GF base available (+€2)</div>
+                      <div class="mt-1">
+                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>GLUTEN</span>
+                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>DAIRY</span>
+                        <span class="state-badge state-free"><i class="bi bi-check"></i>NUT-FREE</span>
+                      </div>
+                      <!-- Knowledge frame, shown expanded on one item to demonstrate the pattern -->
+                      <div class="knowledge-frame">
+                        <div class="mono-label mb-2">Dish knowledge — what Basil &amp; Marco train against</div>
+                        <div class="small">
+                          <div class="row py-1"><div class="col-4 col-md-3"><strong>Guest description</strong></div><div class="col-8 col-md-9">Our classic — sweet San Marzano tomatoes, creamy fior di latte mozzarella and fresh basil on a blistered sourdough base.</div></div>
+                          <div class="row py-1"><div class="col-4 col-md-3"><strong>GF option</strong></div><div class="col-8 col-md-9"><span class="text-success">✓ Yes</span> — separate prep area, +€2</div></div>
+                          <div class="row py-1"><div class="col-4 col-md-3"><strong>Vegetarian</strong></div><div class="col-8 col-md-9"><span class="text-success">✓ Yes</span></div></div>
+                          <div class="row py-1"><div class="col-4 col-md-3"><strong>Pairs with</strong></div><div class="col-8 col-md-9">House Chianti, Peroni</div></div>
+                        </div>
+                        <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#knowledgeModal">
+                          <i class="bi bi-pencil-square me-1"></i>Edit knowledge
+                        </button>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="item-price">€11.00</span>
+                      <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
+                    </div>
+                  </div>
+
+                  <div class="menu-item-row">
+                    <div>
+                      <strong>Diavola</strong>
+                      <div class="text-muted small">Spicy salami, 'nduja, chilli honey, mozzarella</div>
+                      <div class="mt-1">
+                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>GLUTEN</span>
+                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>DAIRY</span>
+                        <span class="state-badge state-free"><i class="bi bi-check"></i>NUT-FREE</span>
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="item-price">€13.50</span>
+                      <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- SECTION: Dolci -->
+              <div class="card border shadow-sm mb-3">
+                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
+                  <strong><span class="roman me-2">III.</span>Dolci</strong>
+                  <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
+                </div>
+                <div class="card-body pt-2">
+                  <div class="menu-item-row">
+                    <div>
+                      <strong>Tiramisù della Casa</strong>
+                      <div class="text-muted small">Today's special — amaretto-soaked savoiardi, mascarpone cream</div>
+                      <div class="mt-1">
+                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>DAIRY</span>
+                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>EGG</span>
+                        <span class="state-badge state-unverified"><i class="bi bi-question-lg"></i>NUTS — UNVERIFIED</span>
+                      </div>
+                      <div class="mono-label mt-1" style="color:var(--basil-gold)">
+                        <i class="bi bi-info-circle me-1"></i>New special — allergens inherit UNVERIFIED until reviewed
+                      </div>
+                    </div>
+                    <div class="d-flex align-items-center gap-2">
+                      <span class="item-price">€6.50</span>
+                      <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-1"></i>Add item</button>
+            </div>
+          </div>
+
+          <!-- ===== LUNCH MENU (collapsed) ===== -->
+          <div class="card menu-card" data-menu-id="2">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div>
+                <h5 class="mb-1">Lunch Menu</h5>
+                <span class="badge rounded-pill bg-success">Active</span>
+                <span class="mono-label ms-2">v2 · updated 14 Jul</span>
+              </div>
+              <div class="d-flex align-items-center">
+                <button class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-outline-danger btn-sm me-2"><i class="bi bi-trash3"></i></button>
+                <button class="btn btn-outline-secondary btn-sm toggle-menu"><i class="bi bi-chevron-down"></i></button>
+              </div>
+            </div>
+            <div class="menu-card-body card-body">
+              <div class="empty-state py-4">
+                <p class="text-muted mb-0 small">2 sections · 9 items — collapsed in this mockup</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== CHRISTMAS MENU (inactive, collapsed) ===== -->
+          <div class="card menu-card" data-menu-id="3">
+            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+              <div>
+                <h5 class="mb-1">Christmas Menu</h5>
+                <span class="badge rounded-pill bg-secondary">Inactive</span>
+                <span class="mono-label ms-2">v1 · updated 12 Dec 2025</span>
+              </div>
+              <div class="d-flex align-items-center">
+                <button class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-pencil-square"></i></button>
+                <button class="btn btn-outline-danger btn-sm me-2"><i class="bi bi-trash3"></i></button>
+                <button class="btn btn-outline-secondary btn-sm toggle-menu"><i class="bi bi-chevron-down"></i></button>
+              </div>
+            </div>
+            <div class="menu-card-body card-body">
+              <div class="empty-state py-4">
+                <p class="text-muted mb-0 small">Seasonal menu — reactivate in December</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================= TRAINING TAB ======================= -->
+    <div class="tab-pane fade" id="training">
+
+      <div class="card mb-3">
+        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <div>
+            <h4 class="mb-0 h5 display-font">Modules &amp; tiers</h4>
+            <div class="mono-label mt-1">Assign a required tier per module — staff train against it</div>
+          </div>
+          <button class="btn btn-primary btn-sm"><i class="bi bi-megaphone me-1"></i>Send The Brief</button>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table basil-table mb-0">
+            <thead>
+              <tr>
+                <th>Module</th>
+                <th>Required tier</th>
+                <th>Team progress</th>
+                <th class="text-end">Completion</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><span class="roman me-2">I.</span><strong>Taking a food order</strong></td>
+                <td><span class="tier-pill tier-2">TIER 2 · MEDIUM</span></td>
+                <td style="min-width:140px"><div class="progress"><div class="progress-bar" style="width:88%"></div></div></td>
+                <td class="text-end item-price">7/8</td>
+              </tr>
+              <tr>
+                <td><span class="roman me-2">II.</span><strong>Handling complaints</strong></td>
+                <td><span class="tier-pill tier-1">TIER 1 · EASY</span></td>
+                <td><div class="progress"><div class="progress-bar mid" style="width:63%"></div></div></td>
+                <td class="text-end item-price">5/8</td>
+              </tr>
+              <tr>
+                <td><span class="roman me-2">III.</span><strong>Allergies &amp; dietary</strong></td>
+                <td><span class="tier-pill tier-3">TIER 3 · DIFFICULT GUEST</span></td>
+                <td><div class="progress"><div class="progress-bar low" style="width:38%"></div></div></td>
+                <td class="text-end item-price">3/8</td>
+              </tr>
+              <tr class="text-muted">
+                <td><span class="roman me-2">IV.</span>Module 4 <span class="mono-label ms-1">(coming soon)</span></td>
+                <td>—</td>
+                <td><div class="progress"><div class="progress-bar" style="width:0%"></div></div></td>
+                <td class="text-end item-price">—</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h4 class="mb-0 h5 display-font">The Brief</h4>
+          <div class="mono-label mt-1">Menu changed → staff retrain → you see it before service</div>
+        </div>
+        <div class="card-body">
+          <div class="event-row">
+            <span class="event-dot dot-gold"></span>
+            <div>
+              <div><strong>Main Menu updated to v4</strong> — Tiramisù della Casa added as a special</div>
+              <div class="event-meta">21 JUL · 3 OF 8 STAFF HAVE RETRAINED ON v4 · ALLERGENS PENDING REVIEW</div>
+            </div>
+          </div>
+          <div class="event-row">
+            <span class="event-dot dot-olive"></span>
+            <div>
+              <div><strong>Lunch Menu v2</strong> — all assigned staff trained</div>
+              <div class="event-meta">14 JUL · COMPLETE</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================= STAFF TAB ======================= -->
+    <div class="tab-pane fade" id="staff">
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <h4 class="mb-0 h5 display-font">Staff</h4>
+          <button class="btn btn-primary btn-sm"><i class="bi bi-person-plus me-1"></i>Invite staff</button>
+        </div>
+        <div class="card-body table-responsive">
+          <table class="table basil-table mb-0">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Orders <span class="d-none d-md-inline">(I)</span></th>
+                <th>Complaints <span class="d-none d-md-inline">(II)</span></th>
+                <th>Allergies <span class="d-none d-md-inline">(III)</span></th>
+                <th class="text-end">Last trained</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Ana Ferreira</strong></td>
+                <td class="text-muted">Server</td>
+                <td><span class="tier-pill tier-3">T3 ✓</span></td>
+                <td><span class="tier-pill tier-2">T2 ✓</span></td>
+                <td><span class="tier-pill tier-3">T3 ✓</span></td>
+                <td class="text-end item-price">22 Jul</td>
+              </tr>
+              <tr>
+                <td><strong>Rui Costa</strong></td>
+                <td class="text-muted">Server</td>
+                <td><span class="tier-pill tier-2">T2 ✓</span></td>
+                <td><span class="tier-pill tier-1">T1 ✓</span></td>
+                <td>
+                  <select class="tier-select">
+                    <option>Assign tier…</option>
+                    <option>Tier 1 · Easy</option>
+                    <option>Tier 2 · Medium</option>
+                    <option selected>Tier 3 · Difficult guest</option>
+                  </select>
+                </td>
+                <td class="text-end item-price">19 Jul</td>
+              </tr>
+              <tr>
+                <td><strong>Beatriz Lopes</strong></td>
+                <td class="text-muted">Host</td>
+                <td><span class="tier-pill tier-2">T2 ✓</span></td>
+                <td><span class="tier-pill tier-2">T2 ✓</span></td>
+                <td><span class="tier-pill tier-2" style="opacity:.55">T3 · in progress</span></td>
+                <td class="text-end item-price">21 Jul</td>
+              </tr>
+              <tr>
+                <td><strong>Marco Silva</strong></td>
+                <td class="text-muted">Bartender</td>
+                <td><span class="tier-pill tier-1">T1 ✓</span></td>
+                <td><span class="tier-pill tier-1" style="opacity:.55">Not started</span></td>
+                <td><span class="tier-pill tier-1" style="opacity:.55">Not started</span></td>
+                <td class="text-end item-price">11 Jul</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================= ANALYTICS TAB ======================= -->
+    <div class="tab-pane fade" id="analytics">
+      <div class="row g-3 mb-3">
+        <div class="col-6 col-lg-3">
+          <div class="card h-100"><div class="card-body">
+            <div class="mono-label">Sessions this week</div>
+            <div class="num display-font fs-2">41</div>
+          </div></div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="card h-100"><div class="card-body">
+            <div class="mono-label">Avg score</div>
+            <div class="num display-font fs-2" style="color:var(--basil-olive)">7.8</div>
+          </div></div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="card h-100"><div class="card-body">
+            <div class="mono-label">Marco interventions</div>
+            <div class="num display-font fs-2" style="color:var(--basil-gold)">12</div>
+          </div></div>
+        </div>
+        <div class="col-6 col-lg-3">
+          <div class="card h-100"><div class="card-body">
+            <div class="mono-label">Top failure trigger</div>
+            <div class="fw-semibold mt-1">Guessing instead of checking</div>
+          </div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h4 class="mb-0 h5 display-font">Coaching feed</h4>
+          <div class="mono-label mt-1">Every Marco intervention, by staff member and turn</div>
+        </div>
+        <div class="card-body">
+          <div class="event-row">
+            <span class="event-dot dot-terracotta"></span>
+            <div>
+              <div><strong>Rui</strong> told a guest the Burrata was nut-free — allergen status is <em>unverified</em>. Marco stepped in: "check with the kitchen first."</div>
+              <div class="event-meta">ALLERGIES · TIER 3 · TURN 6 · TODAY 14:22</div>
+            </div>
+          </div>
+          <div class="event-row">
+            <span class="event-dot dot-gold"></span>
+            <div>
+              <div><strong>Marco S.</strong> missed the order recap before sending to the kitchen.</div>
+              <div class="event-meta">TAKING ORDERS · TIER 1 · TURN 9 · YESTERDAY 18:04</div>
+            </div>
+          </div>
+          <div class="event-row">
+            <span class="event-dot dot-olive"></span>
+            <div>
+              <div><strong>Ana</strong> completed Allergies Tier 3 — vague guest, changed story mid-order — with zero interventions. Score 9.1.</div>
+              <div class="event-meta">ALLERGIES · TIER 3 · COMPLETED · 22 JUL 11:40</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ======================= SETTINGS TAB ======================= -->
+    <div class="tab-pane fade" id="settings">
+      <div class="card">
+        <div class="card-header"><h4 class="mb-0 h5 display-font">Venue settings</h4></div>
+        <div class="card-body">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <label class="mono-label mb-2 d-block">Allergen escalation procedure</label>
+              <select class="form-select mb-2">
+                <option selected>Check with kitchen, then confirm with manager</option>
+                <option>Manager handles all allergen orders</option>
+                <option>Custom…</option>
+              </select>
+              <textarea class="form-control" rows="3">If any allergen is unverified, the server must say: "Let me check that with our kitchen" — never reassure from memory. Duty manager signs off allergen orders.</textarea>
+            </div>
+            <div class="col-md-6">
+              <label class="mono-label mb-2 d-block">Venue allergens</label>
+              <p class="small text-muted mb-2">Beyond the standard 14, add allergens your menu needs. These apply across all training tiers.</p>
+              <div class="d-flex flex-wrap gap-2">
+                <span class="state-badge state-contains">LUPIN</span>
+                <span class="state-badge state-contains">PINE NUTS</span>
+                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus"></i> Add</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ======================= KNOWLEDGE MODAL (three-state allergens) ======================= -->
+<div class="modal fade" id="knowledgeModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Dish knowledge — Margherita</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+
+        <label class="mono-label mb-1 d-block">Guest description</label>
+        <textarea class="form-control mb-3" rows="2">Our classic — sweet San Marzano tomatoes, creamy fior di latte mozzarella and fresh basil on a blistered sourdough base.</textarea>
+
+        <label class="mono-label mb-1 d-block">Allergens — three states, defaults to unverified</label>
+        <p class="small text-muted mb-2">"Free from" is a claim. "Unverified" means staff check with the kitchen. They are not the same thing.</p>
+
+        <div class="mb-3" id="allergenList">
+          <div class="allergen-row"><span>Gluten</span>
+            <div class="tri-state" data-allergen="gluten">
+              <button type="button" class="sel-contains">CONTAINS</button><button type="button">FREE FROM</button><button type="button">UNVERIFIED</button>
+            </div>
+          </div>
+          <div class="allergen-row"><span>Dairy</span>
+            <div class="tri-state" data-allergen="dairy">
+              <button type="button" class="sel-contains">CONTAINS</button><button type="button">FREE FROM</button><button type="button">UNVERIFIED</button>
+            </div>
+          </div>
+          <div class="allergen-row"><span>Nuts</span>
+            <div class="tri-state" data-allergen="nuts">
+              <button type="button">CONTAINS</button><button type="button" class="sel-free">FREE FROM</button><button type="button">UNVERIFIED</button>
+            </div>
+          </div>
+          <div class="allergen-row"><span>Egg</span>
+            <div class="tri-state" data-allergen="egg">
+              <button type="button">CONTAINS</button><button type="button">FREE FROM</button><button type="button" class="sel-unverified">UNVERIFIED</button>
+            </div>
+          </div>
+          <div class="allergen-row"><span>Sulphites</span>
+            <div class="tri-state" data-allergen="sulphites">
+              <button type="button">CONTAINS</button><button type="button">FREE FROM</button><button type="button" class="sel-unverified">UNVERIFIED</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="mono-label mb-1 d-block">Gluten-free option available</label>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label small">Yes — separate prep, +€2</label></div>
+          </div>
+          <div class="col-md-6">
+            <label class="mono-label mb-1 d-block">Pairs well with</label>
+            <input type="text" class="form-control" value="House Chianti, Peroni">
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save knowledge</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ======================= NEW MENU MODAL ======================= -->
+<div class="modal fade" id="newMenuModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">New menu</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <label class="mono-label mb-1 d-block">Menu name</label>
+        <input type="text" class="form-control mb-3" placeholder="e.g. Summer Menu">
+        <label class="mono-label mb-1 d-block">Status</label>
+        <select class="form-select"><option selected>Active</option><option>Inactive</option></select>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Create menu</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/dashboard.js"></script>
+</body>
+</html>

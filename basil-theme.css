@@ -729,3 +729,24 @@ select:focus-visible, textarea:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
 }
+
+/* ---------- Generated question preview ---------- */
+.q-preview {
+  border: 1px solid var(--line);
+  border-left: 2px solid var(--olive);
+  border-radius: 3px;
+  padding: 13px 16px;
+  margin-bottom: 10px;
+  background: #fff;
+}
+.q-num {
+  font-family: var(--font-mono);
+  font-size: 9px; letter-spacing: 0.13em; text-transform: uppercase;
+  color: var(--ink-mute); margin-bottom: 5px;
+}
+.q-text { font-size: 14.5px; margin-bottom: 6px; }
+.q-src {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  color: var(--olive);
+}

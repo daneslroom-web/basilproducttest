@@ -320,7 +320,7 @@ function renderStaff() {
 
 /* ---------- Navigation ---------- */
 const TITLES = {
-  venue: 'Venue', menu: 'Menu', safety: 'Safety & escalation',
+  venue: 'Venue', menu: 'Menu', content: 'Learn & quiz', safety: 'Safety & escalation',
   authority: 'Service authority', payment: 'Payment policy',
   staff: 'Staff', brief: 'The Brief', reports: 'Reports', account: 'Plan & users'
 };

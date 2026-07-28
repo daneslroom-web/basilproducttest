@@ -35,6 +35,7 @@
     <div class="side-group-label">Setup</div>
     <a class="side-link" href="#venue"><i class="bi bi-shop"></i> Venue</a>
     <a class="side-link" href="#menu"><i class="bi bi-card-list"></i> Menu</a>
+    <a class="side-link" href="#content"><i class="bi bi-mortarboard"></i> Learn &amp; quiz</a>
     <a class="side-link" href="#safety"><i class="bi bi-shield-check"></i> Safety &amp; escalation</a>
     <a class="side-link" href="#authority"><i class="bi bi-sliders"></i> Service authority</a>
     <a class="side-link" href="#payment"><i class="bi bi-receipt"></i> Payment policy</a>
@@ -252,6 +253,112 @@
           </tr>
         </tbody>
       </table>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- LEARN & QUIZ ---------- -->
+<section class="view" id="view-content">
+  <div class="view-head">
+    <h1>Learn &amp; quiz</h1>
+    <p>The phrases your team learns, and the questions they are asked. Most of this looks after itself.</p>
+  </div>
+
+  <div class="build-note">
+    <strong>For Tom:</strong> the trap on this screen is building a <code>quiz_questions</code> table and seeding it. Don't. Questions are generated at runtime from the menu, the allergen matrix and the hidden-ingredient notes, so they follow a menu change with no manual step — that regeneration is the differentiator against ShiftTrained. Only two things here need storage: manager-written custom questions, and venue overrides on the phrase bank.
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Quiz questions</h2>
+      <span class="count-pill">generated from v14</span>
+    </div>
+    <div class="panel-body">
+      <div class="callout callout-olive mb-4">
+        <i class="bi bi-arrow-repeat"></i>
+        <div>
+          <strong>These write themselves.</strong>
+          Questions are built from your current menu every time it changes. Add a special this afternoon and tonight's quiz already asks about it. There is nothing here to maintain.
+        </div>
+      </div>
+
+      <div class="q-preview">
+        <div class="q-num">Question 1</div>
+        <div class="q-text">A guest asks whether the Funghi e Tartufo is suitable for someone avoiding dairy. What do you say?</div>
+        <div class="q-src">from — Funghi e Tartufo · milk · unverified</div>
+      </div>
+      <div class="q-preview">
+        <div class="q-num">Question 2</div>
+        <div class="q-text">Which of these can be made without gluten, and at what extra cost?</div>
+        <div class="q-src">from — adaptation notes across the pizza section</div>
+      </div>
+      <div class="q-preview">
+        <div class="q-num">Question 3</div>
+        <div class="q-text">The Arancini are fried. What should you tell a guest with a shellfish allergy?</div>
+        <div class="q-src">from — Arancini · hidden-ingredient note · shared fryer</div>
+      </div>
+
+      <div class="help mt-3">Hidden-ingredient notes carry the most weight, because those are the questions guests actually ask.</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Your own questions</h2>
+      <button class="btn btn-primary btn-sm" data-toast="Custom questions are stored against the current menu version."><i class="bi bi-plus-lg"></i> Add question</button>
+    </div>
+    <div class="panel-body">
+      <table class="table table-basil mb-0">
+        <thead><tr><th>Question</th><th>Module</th><th>Added</th><th></th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="dish-name">A guest asks to swap a side that isn't listed as swappable. What do you do?</div></td>
+            <td>Serving the menu</td><td>12 Jul</td>
+            <td class="text-end"><button class="btn btn-ghost btn-xs" data-toast="Edit removed from this mockup.">Edit</button></td>
+          </tr>
+          <tr>
+            <td><div class="dish-name">Where do you send a guest who asks about parking?</div></td>
+            <td>Serving the menu</td><td>4 Jul</td>
+            <td class="text-end"><button class="btn btn-ghost btn-xs" data-toast="Edit removed from this mockup.">Edit</button></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="help mt-3">Use these for the things only your venue knows. Anything already on the menu is covered automatically.</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Phrase bank</h2>
+      <span class="count-pill">Module 1 · Serving the menu</span>
+    </div>
+    <div class="panel-body">
+      <p class="help mt-0 mb-4">Every module ships with industry-standard phrasing. Leave a row blank and staff learn the standard version. Fill it in and they learn yours.</p>
+      <table class="table table-basil mb-0">
+        <thead><tr><th style="width:50%">Standard phrase</th><th>How you say it here</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>Are you ready to order?</td>
+            <td><input class="form-control form-control-sm" placeholder="Leave blank to use the standard"></td>
+          </tr>
+          <tr>
+            <td>Would you like anything to drink with that?</td>
+            <td><input class="form-control form-control-sm" value="Can I get you something to drink while you look?"></td>
+          </tr>
+          <tr>
+            <td>Let me read that back to you.</td>
+            <td><input class="form-control form-control-sm" placeholder="Leave blank to use the standard"></td>
+          </tr>
+          <tr>
+            <td>I'll get that started for you right away.</td>
+            <td><input class="form-control form-control-sm" placeholder="Leave blank to use the standard"></td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="build-note mt-3">
+        <strong>For Tom:</strong> base-plus-override, the same shape as brand voice — a shared phrase bank per module, and a venue override table. The base set is not copied per venue on signup, or a wording fix upstream never reaches anyone.
+      </div>
+      <div class="help mt-3">Phrases play as audio, so a server who reads slowly is not held back.</div>
     </div>
   </div>
 </section>
@@ -486,7 +593,13 @@
         <div class="col-md-4">
           <label class="form-label">Corkage</label>
           <div class="input-group"><span class="input-group-text">€</span><input class="form-control" value="12.00"></div>
-          <div class="help">Per bottle.</div>
+          <select class="form-select form-select-sm mt-2">
+            <option selected>Per bottle</option>
+            <option>Per person</option>
+            <option>Per bottle and per person</option>
+            <option>We don't allow it</option>
+          </select>
+          <div class="help">Quiet in casual dining, alive in resort and fine dining. Leave it blank if you don't do it.</div>
         </div>
         <div class="col-12">
           <label class="form-label">How staff should explain the service charge</label>
@@ -525,12 +638,43 @@
         <div class="col-12">
           <label class="form-label">Accepted payment</label>
           <div class="chip-row">
-            <button class="chip active">Card</button>
+            <button class="chip active">Visa</button>
+            <button class="chip active">Mastercard</button>
+            <button class="chip">Amex</button>
             <button class="chip active">Cash</button>
+            <button class="chip active">Contactless</button>
             <button class="chip active">Apple / Google Pay</button>
-            <button class="chip">Multibanco</button>
+            <button class="chip active">MB Way</button>
+            <button class="chip">Wise</button>
+            <button class="chip">QR code</button>
             <button class="chip">Vouchers</button>
           </div>
+          <div class="help">A capability list, not training content. "Do you take Visa?" is a one-word answer, so staff aren't drilled on it.</div>
+        </div>
+
+        <div class="col-12"><hr class="rule"></div>
+
+        <div class="col-12">
+          <div class="callout callout-terracotta mb-4">
+            <i class="bi bi-chat-quote"></i>
+            <div>
+              <strong>The awkward ones are the training content.</strong>
+              Telling a guest who has finished their meal that you can't take their card is a hard conversation in any language. These three fields are what Tier 3 practises against.
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label">Cash only</label>
+          <div class="form-check form-switch mt-1"><input class="form-check-input" type="checkbox"><label class="form-check-label">We can't take cards</label></div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Card minimum</label>
+          <div class="input-group"><span class="input-group-text">€</span><input class="form-control" value="10.00"></div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Service charge already included</label>
+          <div class="form-check form-switch mt-1"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">Say so, to stop double tipping</label></div>
         </div>
       </div>
     </div>
@@ -539,6 +683,9 @@
   <div class="panel">
     <div class="panel-head"><h2>Who can change a bill</h2></div>
     <div class="panel-body">
+      <div class="build-note">
+        <strong>For Tom:</strong> <code>payment_permissions</code> — separate table from the Module 3 authority matrix, one row per action, extensible by adding a row rather than a migration. Both matrices reference one shared <code>authority_level</code> enum, or "manager only" drifts between the two and cross-module reporting can't say "overstepped authority" in one voice.
+      </div>
       <table class="table table-basil mb-0">
         <thead><tr><th>Action</th><th style="width:34%">Who</th></tr></thead>
         <tbody>

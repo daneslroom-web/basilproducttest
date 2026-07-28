@@ -1,624 +1,823 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Il Forno — Restaurant · Basil</title>
+<title>Basil — Manager dashboard (mockup)</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter+Tight:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,400;0,600;1,400&family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/basil-theme.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+<link href="css/basil-theme.css" rel="stylesheet">
 </head>
 <body>
 
-<!-- ======================= SIDE MENU ======================= -->
-<nav class="basil-sidebar" id="sidebar" aria-label="Main navigation">
-  <a class="brand" href="#">Basil<span class="leaf">.</span></a>
+<!-- ============ SIDEBAR ============ -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-brand">
+    <span class="brand-mark">Basil</span>
+    <span class="brand-sub">Manager</span>
+  </div>
 
-  <div class="nav-section">Workspace</div>
-  <a class="nav-link" href="#"><i class="bi bi-grid-1x2"></i> Dashboard</a>
-  <a class="nav-link active" href="#"><i class="bi bi-shop"></i> Restaurants</a>
-  <a class="nav-link" href="#"><i class="bi bi-people"></i> All staff</a>
+  <div class="venue-switch">
+    <div class="eyebrow">Venue</div>
+    <select class="form-select form-select-sm venue-select" id="venueSelect">
+      <option>Il Forno Trattoria — Lagos</option>
+      <option>Il Forno Trattoria — Portimão</option>
+      <option>Forno Group (all venues)</option>
+    </select>
+  </div>
 
-  <div class="nav-section">Account</div>
-  <a class="nav-link" href="#"><i class="bi bi-credit-card"></i> Billing</a>
-  <a class="nav-link" href="#"><i class="bi bi-gear"></i> Settings</a>
-  <a class="nav-link" href="#"><i class="bi bi-question-circle"></i> Help</a>
+  <div class="side-group">
+    <div class="side-group-label">Setup</div>
+    <a class="side-link" href="#venue"><i class="bi bi-shop"></i> Venue</a>
+    <a class="side-link" href="#menu"><i class="bi bi-card-list"></i> Menu</a>
+    <a class="side-link" href="#safety"><i class="bi bi-shield-check"></i> Safety &amp; escalation</a>
+    <a class="side-link" href="#authority"><i class="bi bi-sliders"></i> Service authority</a>
+    <a class="side-link" href="#payment"><i class="bi bi-receipt"></i> Payment policy</a>
+  </div>
+
+  <div class="side-group">
+    <div class="side-group-label">Team</div>
+    <a class="side-link" href="#staff"><i class="bi bi-people"></i> Staff</a>
+    <a class="side-link" href="#brief"><i class="bi bi-broadcast"></i> The Brief</a>
+  </div>
+
+  <div class="side-group">
+    <div class="side-group-label">Insight</div>
+    <a class="side-link" href="#reports"><i class="bi bi-bar-chart"></i> Reports</a>
+  </div>
+
+  <div class="side-group">
+    <div class="side-group-label">Account</div>
+    <a class="side-link" href="#account"><i class="bi bi-gear"></i> Plan &amp; users</a>
+  </div>
 
   <div class="sidebar-foot">
-    Maria Rossi<br>
-    <span class="mono-label">Owner · 2 venues</span>
+    <div class="eyebrow">Menu version</div>
+    <div class="ver-line"><span class="ver-num">v14</span> published 12 Jul</div>
   </div>
 </nav>
 <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-<!-- ======================= MAIN ======================= -->
-<main class="basil-main">
-
-  <!-- Top bar (mobile toggle + breadcrumb) -->
-  <div class="d-flex align-items-center gap-3 mb-3">
-    <button class="sidebar-toggle" id="sidebarToggle" aria-label="Open menu">
-      <i class="bi bi-list fs-5"></i>
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <button class="btn-icon d-lg-none" id="sidebarToggle" aria-label="Open menu"><i class="bi bi-list"></i></button>
+  <div class="topbar-title" id="topbarTitle">Venue</div>
+  <div class="topbar-right">
+    <button class="btn btn-flag btn-sm" data-bs-toggle="offcanvas" data-bs-target="#decisionsPanel">
+      <i class="bi bi-flag"></i> <span class="d-none d-sm-inline">Open decisions</span> <span class="flag-count">7</span>
     </button>
-    <div class="mono-label">
-      <a href="#" class="text-decoration-none" style="color:inherit">Restaurants</a>
-      <span class="mx-1">/</span>
-      <span style="color:var(--basil-terracotta)">Il Forno</span>
+    <div class="form-check form-switch notes-switch">
+      <input class="form-check-input" type="checkbox" id="notesToggle">
+      <label class="form-check-label" for="notesToggle">Build notes</label>
+    </div>
+    <div class="avatar">DH</div>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<main class="main">
+
+<!-- ---------- VENUE ---------- -->
+<section class="view" id="view-venue">
+  <div class="view-head">
+    <h1>Venue</h1>
+    <p>Who you are and how your team is expected to sound. Everything here is read by the guest simulator, the coach and the scorer at the start of every session.</p>
+  </div>
+
+  <div class="build-note">
+    <strong>For Tom:</strong> this whole screen is the venue profile record. It is injected at runtime into every AI call — guest sim, Marco and the scorer read the same versioned row. Nothing on this page may ever be hardcoded in a prompt.
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Identity</h2></div>
+    <div class="panel-body">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label class="form-label">Venue name</label>
+          <input class="form-control" value="Il Forno Trattoria">
+          <div class="help">Used by name in guest conversations.</div>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Cuisine</label>
+          <input class="form-control" value="Italian — wood-fired pizza, pasta, small plates">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Service style</label>
+          <select class="form-select">
+            <option selected>Full table service</option>
+            <option>Table service, order at bar</option>
+            <option>Fine dining</option>
+            <option>Counter service — not supported</option>
+          </select>
+          <div class="help">Counter service is out of scope. Basil trains staff who talk a guest through a menu at the table.</div>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Covers</label>
+          <input class="form-control" value="86">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Average spend</label>
+          <input class="form-control" value="€34">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Languages your team speaks</label>
+          <input class="form-control" value="Portuguese, Nepali, Ukrainian, Spanish">
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">Languages your guests speak</label>
+          <input class="form-control" value="English, German, Dutch, French">
+          <div class="help">Basil trains in English. This tells us which accents and phrasings to expect from the guest.</div>
+        </div>
+      </div>
     </div>
   </div>
 
-  <!-- Venue masthead -->
-  <div class="venue-masthead mb-3">
-    <div class="venue-mark">IF</div>
-    <div>
-      <h1>Il Forno</h1>
-      <div class="mono-label mt-1">Trattoria · Table service · Lagos, Algarve</div>
+  <div class="panel">
+    <div class="panel-head"><h2>Brand voice</h2></div>
+    <div class="panel-body">
+      <label class="form-label">How your team should sound</label>
+      <div class="chip-row mb-4">
+        <button class="chip active">Warm and relaxed</button>
+        <button class="chip">Classic and formal</button>
+        <button class="chip">Quick and efficient</button>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <label class="form-label">Greeting</label>
+          <textarea class="form-control" rows="3">Good evening, welcome to Il Forno. Have you dined with us before?</textarea>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Order recap</label>
+          <textarea class="form-control" rows="3">Let me read that back to you before it goes to the kitchen.</textarea>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Farewell</label>
+          <textarea class="form-control" rows="3">Thank you for coming in — we hope to see you again soon.</textarea>
+        </div>
+      </div>
+      <div class="help mt-3">Staff are never scored on repeating these word for word. They set the register the scorer compares against.</div>
     </div>
-    <div class="venue-meta">
-      <div class="venue-stat">
-        <div class="num">8</div>
-        <div class="mono-label">Staff</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>House standards</h2></div>
+    <div class="panel-body">
+      <label class="form-label">What good service looks like here</label>
+      <textarea class="form-control" rows="4">Acknowledge the guest within 30 seconds. Repeat every order back before sending it. If something goes wrong, apologise once, fix it, and tell the guest what happens next and roughly when.</textarea>
+      <div class="build-note mt-3">
+        <strong>For Tom:</strong> this text is injected into the complaints scorer. V14 lesson — scope it in the prompt so it cannot override a named check. A house standard that says "check back afterwards" was re-triggering a strict reading of a check the session format makes impossible.
       </div>
-      <div class="venue-stat">
-        <div class="num ok">74%</div>
-        <div class="mono-label">Trained</div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- MENU ---------- -->
+<section class="view" id="view-menu">
+  <div class="view-head">
+    <h1>Menu</h1>
+    <p>The single source of truth for every module. If it is not written here, the AI will not say it.</p>
+  </div>
+
+  <div class="build-note">
+    <strong>For Tom:</strong> menu rows are versioned, not overwritten. The Brief depends on a menu-version → session-completion join, so an edit must mint a new version rather than mutate the row in place.
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <div class="search-wrap">
+        <i class="bi bi-search"></i>
+        <input class="form-control" placeholder="Search dishes" id="menuSearch">
       </div>
-      <div class="venue-stat">
-        <div class="num warn">3</div>
-        <div class="mono-label">Unverified</div>
+      <select class="form-select w-auto" id="sectionFilter">
+        <option value="">All sections</option>
+        <option>Antipasti</option>
+        <option>Pizza</option>
+        <option>Dolci</option>
+      </select>
+    </div>
+    <div class="toolbar-right">
+      <button class="btn btn-ghost btn-sm" data-toast="Bulk import lives here — CSV, photo of the menu, or paste."><i class="bi bi-upload"></i> Import</button>
+      <button class="btn btn-primary btn-sm" data-toast="New dishes are created with all 14 allergens UNVERIFIED."><i class="bi bi-plus-lg"></i> Add dish</button>
+    </div>
+  </div>
+
+  <div class="panel p-0">
+    <table class="table table-basil mb-0" id="menuTable">
+      <thead>
+        <tr>
+          <th style="width:38%">Dish</th>
+          <th>Section</th>
+          <th>Price</th>
+          <th>Allergen data</th>
+          <th>Modifiable</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="menuBody"></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head">
+      <h2>Specials</h2>
+      <button class="btn btn-ghost btn-sm" data-toast="Specials are added the same way as dishes, with a live-from date."><i class="bi bi-plus-lg"></i> Add special</button>
+    </div>
+    <div class="panel-body">
+      <div class="callout callout-gold">
+        <i class="bi bi-exclamation-triangle"></i>
+        <div>
+          <strong>Specials start UNVERIFIED.</strong>
+          A new special inherits UNVERIFIED for all 14 allergens and appears in the review queue until someone confirms it. Staff are trained to escalate on UNVERIFIED, so an unreviewed special is safe — it is just slower at the table.
+        </div>
+      </div>
+      <table class="table table-basil mt-3 mb-0">
+        <thead><tr><th>Special</th><th>Live from</th><th>Allergen data</th><th></th></tr></thead>
+        <tbody>
+          <tr>
+            <td><div class="dish-name">Vongole e ’Nduja</div><div class="dish-desc">clams, ’nduja, white wine, parsley</div></td>
+            <td>Tonight</td>
+            <td><span class="chip-allergen unverified">14 unverified</span></td>
+            <td class="text-end"><button class="btn btn-ghost btn-xs" data-nav="safety">Review</button></td>
+          </tr>
+          <tr>
+            <td><div class="dish-name">Burrata &amp; peach</div><div class="dish-desc">burrata, grilled peach, basil oil</div></td>
+            <td>Fri 31 Jul</td>
+            <td><span class="chip-allergen contains">2 contains</span> <span class="chip-allergen freefrom">12 confirmed</span></td>
+            <td class="text-end"><button class="btn btn-ghost btn-xs" data-toast="Reviewed — no action needed.">Reviewed</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- SAFETY ---------- -->
+<section class="view" id="view-safety">
+  <div class="view-head">
+    <h1>Safety &amp; escalation</h1>
+    <p>The procedure is fixed. Your data and your kitchen's process are not.</p>
+  </div>
+
+  <div class="panel panel-locked">
+    <div class="panel-head">
+      <h2><i class="bi bi-lock"></i> The safety flow</h2>
+      <span class="pill-locked">Locked — industry standard</span>
+    </div>
+    <div class="panel-body">
+      <ol class="flow-list">
+        <li>Acknowledge the allergy out loud</li>
+        <li>Never guess</li>
+        <li>Check against confirmed data</li>
+        <li>Escalate if anything is unconfirmed</li>
+        <li>Confirm back to the guest before the order is sent</li>
+      </ol>
+      <div class="help">This cannot be edited, shortened or turned off. It is the same in every venue on Basil, and it is what your team is scored against.</div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Your escalation procedure</h2></div>
+    <div class="panel-body">
+      <label class="form-label">When a server is unsure, they should</label>
+      <select class="form-select mb-3">
+        <option selected>Speak to the kitchen directly before confirming anything</option>
+        <option>Fetch the duty manager</option>
+        <option>Fetch the head chef</option>
+        <option>Custom procedure</option>
+      </select>
+      <label class="form-label">In your words</label>
+      <textarea class="form-control" rows="3">Tell the guest you will check with the kitchen. Go to the pass, speak to the chef on section, and come back with a yes or a no. Never send an allergy order without a verbal confirmation from the pass.</textarea>
+      <div class="help">Staff hear this back from Marco during practice, so write it the way you would say it on the floor.</div>
+
+      <hr class="rule">
+
+      <label class="form-label">Cross-contamination wording</label>
+      <textarea class="form-control" rows="2">We prepare all dishes in one kitchen, so we cannot guarantee a dish is completely free from any allergen.</textarea>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Review queue</h2><span class="count-pill">3 dishes</span></div>
+    <div class="panel-body">
+      <table class="table table-basil mb-0">
+        <thead><tr><th>Dish</th><th>Added</th><th>Unverified</th><th></th></tr></thead>
+        <tbody>
+          <tr><td class="dish-name">Vongole e ’Nduja</td><td>Today</td><td><span class="chip-allergen unverified">14</span></td><td class="text-end"><button class="btn btn-primary btn-xs" data-nav="menu">Confirm allergens</button></td></tr>
+          <tr><td class="dish-name">Ortolana</td><td>4 Jul</td><td><span class="chip-allergen unverified">3</span></td><td class="text-end"><button class="btn btn-primary btn-xs" data-nav="menu">Confirm allergens</button></td></tr>
+          <tr><td class="dish-name">Panna cotta</td><td>2 Jul</td><td><span class="chip-allergen unverified">1</span></td><td class="text-end"><button class="btn btn-primary btn-xs" data-nav="menu">Confirm allergens</button></td></tr>
+        </tbody>
+      </table>
+
+      <div class="decision" id="d-review">
+        <div class="decision-head"><span class="decision-tag">Decision 5</span> Can a dish go live before it is reviewed?</div>
+        <div class="decision-body">
+          <div class="form-check"><input class="form-check-input" type="radio" name="reviewRule" id="rr1" checked><label class="form-check-label" for="rr1"><strong>Allow it live, staff escalate</strong> — an unreviewed dish is sellable; staff are trained to check with the kitchen. <span class="rec">Recommended — matches the spec</span></label></div>
+          <div class="form-check"><input class="form-check-input" type="radio" name="reviewRule" id="rr2"><label class="form-check-label" for="rr2"><strong>Block it</strong> — the dish cannot be sold until every allergen is confirmed.</label></div>
+          <div class="decision-why">Blocking sounds safer and is worse. A kitchen mid-service will work around a block, and then the dish is being sold with no record of it at all. Allow-with-escalate keeps it visible.</div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Tabs -->
-  <ul class="nav nav-pills basil-tabs mb-4" id="restaurantTabs" role="tablist">
-    <li class="nav-item"><button class="nav-link active" data-bs-toggle="pill" data-bs-target="#menus">Menus</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#training">Training</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#staff">Staff</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#analytics">Analytics</button></li>
-    <li class="nav-item"><button class="nav-link" data-bs-toggle="pill" data-bs-target="#settings">Settings</button></li>
-  </ul>
-
-  <div class="tab-content">
-
-    <!-- ======================= MENUS TAB ======================= -->
-    <div class="tab-pane fade show active" id="menus">
-
-      <!-- Allergen review strip — the safety loop, always visible when work is outstanding -->
-      <div class="review-strip mb-3">
-        <i class="bi bi-exclamation-triangle-fill"></i>
-        <div class="flex-grow-1">
-          <strong>3 dishes have unverified allergens.</strong>
-          <span class="d-block d-sm-inline text-muted">Until verified, staff are trained to check with the kitchen — not to reassure guests.</span>
+  <div class="panel">
+    <div class="panel-head"><h2>Menu confidence</h2></div>
+    <div class="panel-body">
+      <div class="stat-row">
+        <div class="stat">
+          <div class="stat-num">81<span class="pct">%</span></div>
+          <div class="stat-label">of dishes fully confirmed</div>
         </div>
-        <button class="btn btn-sm btn-olive"><i class="bi bi-clipboard-check me-1"></i>Review now</button>
+        <div class="stat">
+          <div class="stat-num">3</div>
+          <div class="stat-label">dishes awaiting review</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">18</div>
+          <div class="stat-label">unverified allergen entries</div>
+        </div>
       </div>
+      <div class="progress-b"><div class="progress-b-fill" style="width:81%"></div></div>
 
-      <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h4 class="mb-0 h5 display-font">Menus</h4>
-          <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#newMenuModal">
-            <i class="bi bi-plus-circle me-1"></i>New menu
-          </button>
-        </div>
-        <div class="card-body">
-
-          <!-- ===== MAIN MENU (open) ===== -->
-          <div class="card menu-card open" data-menu-id="1">
-            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-              <div>
-                <h5 class="mb-1">Main Menu</h5>
-                <span class="badge rounded-pill bg-success">Active</span>
-                <span class="mono-label ms-2">v4 · updated 21 Jul</span>
-              </div>
-              <div class="d-flex align-items-center">
-                <button class="btn btn-outline-primary btn-sm me-2" title="Edit menu"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-outline-danger btn-sm me-2" title="Delete menu"><i class="bi bi-trash3"></i></button>
-                <button class="btn btn-outline-secondary btn-sm toggle-menu"><i class="bi bi-chevron-down"></i></button>
-              </div>
-            </div>
-            <div class="menu-card-body card-body">
-
-              <div class="text-end mb-3">
-                <button class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-1"></i>Add section</button>
-              </div>
-
-              <!-- SECTION: Antipasti -->
-              <div class="card border shadow-sm mb-3">
-                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-                  <strong><span class="roman me-2">I.</span>Antipasti</strong>
-                  <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="card-body pt-2">
-
-                  <div class="menu-item-row">
-                    <div>
-                      <strong>Bruschetta al Pomodoro</strong>
-                      <div class="text-muted small">Grilled bread, marinated tomatoes, basil, garlic oil</div>
-                      <div class="mt-1">
-                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>GLUTEN</span>
-                        <span class="state-badge state-free"><i class="bi bi-check"></i>DAIRY-FREE</span>
-                        <span class="state-badge state-free"><i class="bi bi-check"></i>NUT-FREE</span>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                      <span class="item-price">€7.50</span>
-                      <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
-                    </div>
-                  </div>
-
-                  <div class="menu-item-row">
-                    <div>
-                      <strong>Burrata con Prosciutto</strong>
-                      <div class="text-muted small">Creamy burrata, 18-month prosciutto, rocket, aged balsamic</div>
-                      <div class="mt-1">
-                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>DAIRY</span>
-                        <span class="state-badge state-unverified"><i class="bi bi-question-lg"></i>NUTS — UNVERIFIED</span>
-                        <span class="state-badge state-unverified"><i class="bi bi-question-lg"></i>SULPHITES — UNVERIFIED</span>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                      <span class="item-price">€12.00</span>
-                      <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- SECTION: Pizza -->
-              <div class="card border shadow-sm mb-3">
-                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-                  <strong><span class="roman me-2">II.</span>Pizza</strong>
-                  <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="card-body pt-2">
-
-                  <div class="menu-item-row">
-                    <div>
-                      <strong>Margherita</strong>
-                      <div class="text-muted small">San Marzano tomato, fior di latte, basil. GF base available (+€2)</div>
-                      <div class="mt-1">
-                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>GLUTEN</span>
-                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>DAIRY</span>
-                        <span class="state-badge state-free"><i class="bi bi-check"></i>NUT-FREE</span>
-                      </div>
-                      <!-- Knowledge frame, shown expanded on one item to demonstrate the pattern -->
-                      <div class="knowledge-frame">
-                        <div class="mono-label mb-2">Dish knowledge — what Basil &amp; Marco train against</div>
-                        <div class="small">
-                          <div class="row py-1"><div class="col-4 col-md-3"><strong>Guest description</strong></div><div class="col-8 col-md-9">Our classic — sweet San Marzano tomatoes, creamy fior di latte mozzarella and fresh basil on a blistered sourdough base.</div></div>
-                          <div class="row py-1"><div class="col-4 col-md-3"><strong>GF option</strong></div><div class="col-8 col-md-9"><span class="text-success">✓ Yes</span> — separate prep area, +€2</div></div>
-                          <div class="row py-1"><div class="col-4 col-md-3"><strong>Vegetarian</strong></div><div class="col-8 col-md-9"><span class="text-success">✓ Yes</span></div></div>
-                          <div class="row py-1"><div class="col-4 col-md-3"><strong>Pairs with</strong></div><div class="col-8 col-md-9">House Chianti, Peroni</div></div>
-                        </div>
-                        <button class="btn btn-outline-primary btn-sm mt-2" data-bs-toggle="modal" data-bs-target="#knowledgeModal">
-                          <i class="bi bi-pencil-square me-1"></i>Edit knowledge
-                        </button>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                      <span class="item-price">€11.00</span>
-                      <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
-                    </div>
-                  </div>
-
-                  <div class="menu-item-row">
-                    <div>
-                      <strong>Diavola</strong>
-                      <div class="text-muted small">Spicy salami, 'nduja, chilli honey, mozzarella</div>
-                      <div class="mt-1">
-                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>GLUTEN</span>
-                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>DAIRY</span>
-                        <span class="state-badge state-free"><i class="bi bi-check"></i>NUT-FREE</span>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                      <span class="item-price">€13.50</span>
-                      <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-
-              <!-- SECTION: Dolci -->
-              <div class="card border shadow-sm mb-3">
-                <div class="card-header bg-transparent d-flex justify-content-between align-items-center">
-                  <strong><span class="roman me-2">III.</span>Dolci</strong>
-                  <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
-                </div>
-                <div class="card-body pt-2">
-                  <div class="menu-item-row">
-                    <div>
-                      <strong>Tiramisù della Casa</strong>
-                      <div class="text-muted small">Today's special — amaretto-soaked savoiardi, mascarpone cream</div>
-                      <div class="mt-1">
-                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>DAIRY</span>
-                        <span class="state-badge state-contains"><i class="bi bi-dot"></i>EGG</span>
-                        <span class="state-badge state-unverified"><i class="bi bi-question-lg"></i>NUTS — UNVERIFIED</span>
-                      </div>
-                      <div class="mono-label mt-1" style="color:var(--basil-gold)">
-                        <i class="bi bi-info-circle me-1"></i>New special — allergens inherit UNVERIFIED until reviewed
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center gap-2">
-                      <span class="item-price">€6.50</span>
-                      <button class="btn btn-sm btn-outline-secondary"><i class="bi bi-three-dots"></i></button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <button class="btn btn-primary btn-sm"><i class="bi bi-plus-circle me-1"></i>Add item</button>
-            </div>
-          </div>
-
-          <!-- ===== LUNCH MENU (collapsed) ===== -->
-          <div class="card menu-card" data-menu-id="2">
-            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-              <div>
-                <h5 class="mb-1">Lunch Menu</h5>
-                <span class="badge rounded-pill bg-success">Active</span>
-                <span class="mono-label ms-2">v2 · updated 14 Jul</span>
-              </div>
-              <div class="d-flex align-items-center">
-                <button class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-outline-danger btn-sm me-2"><i class="bi bi-trash3"></i></button>
-                <button class="btn btn-outline-secondary btn-sm toggle-menu"><i class="bi bi-chevron-down"></i></button>
-              </div>
-            </div>
-            <div class="menu-card-body card-body">
-              <div class="empty-state py-4">
-                <p class="text-muted mb-0 small">2 sections · 9 items — collapsed in this mockup</p>
-              </div>
-            </div>
-          </div>
-
-          <!-- ===== CHRISTMAS MENU (inactive, collapsed) ===== -->
-          <div class="card menu-card" data-menu-id="3">
-            <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-              <div>
-                <h5 class="mb-1">Christmas Menu</h5>
-                <span class="badge rounded-pill bg-secondary">Inactive</span>
-                <span class="mono-label ms-2">v1 · updated 12 Dec 2025</span>
-              </div>
-              <div class="d-flex align-items-center">
-                <button class="btn btn-outline-primary btn-sm me-2"><i class="bi bi-pencil-square"></i></button>
-                <button class="btn btn-outline-danger btn-sm me-2"><i class="bi bi-trash3"></i></button>
-                <button class="btn btn-outline-secondary btn-sm toggle-menu"><i class="bi bi-chevron-down"></i></button>
-              </div>
-            </div>
-            <div class="menu-card-body card-body">
-              <div class="empty-state py-4">
-                <p class="text-muted mb-0 small">Seasonal menu — reactivate in December</p>
-              </div>
-            </div>
-          </div>
-
+      <div class="decision" id="d-metric">
+        <div class="decision-head"><span class="decision-tag">Decision 6</span> Show this figure at all?</div>
+        <div class="decision-body">
+          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="mc1" checked><label class="form-check-label" for="mc1">Show menu confidence to managers <span class="rec">Recommended</span></label></div>
+          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="mc2"><label class="form-check-label" for="mc2">Show it to staff too</label></div>
+          <div class="decision-why">Managers, yes — it turns an invisible data-quality problem into a number that moves, and it is a renewal conversation you can point at. Staff, no. A server who sees "81% confirmed" starts treating the other 19% as an estimate. Their rule has to stay: unverified means ask.</div>
         </div>
       </div>
     </div>
+  </div>
 
-    <!-- ======================= TRAINING TAB ======================= -->
-    <div class="tab-pane fade" id="training">
-
-      <div class="card mb-3">
-        <div class="card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
-          <div>
-            <h4 class="mb-0 h5 display-font">Modules &amp; tiers</h4>
-            <div class="mono-label mt-1">Assign a required tier per module — staff train against it</div>
-          </div>
-          <button class="btn btn-primary btn-sm"><i class="bi bi-megaphone me-1"></i>Send The Brief</button>
+  <div class="panel">
+    <div class="panel-head"><h2>What the quiz asks about</h2></div>
+    <div class="panel-body">
+      <div class="decision" id="d-quiz">
+        <div class="decision-head"><span class="decision-tag">Decision 4</span> Where do allergy quiz questions come from?</div>
+        <div class="decision-body">
+          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="q1" checked><label class="form-check-label" for="q1"><strong>Hidden-allergen notes</strong> — "the pesto contains cashews", "the fryer is shared" <span class="rec">Recommended — higher priority</span></label></div>
+          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="q2" checked><label class="form-check-label" for="q2"><strong>The allergen matrix</strong> — straight contains / free-from questions <span class="rec">Recommended</span></label></div>
+          <div class="decision-why">Both, but hidden-allergen notes carry the training value. The matrix teaches a server to read a table. The hidden notes teach them the thing that actually catches people out, and they are the questions a guest asks.</div>
         </div>
-        <div class="card-body table-responsive">
-          <table class="table basil-table mb-0">
-            <thead>
-              <tr>
-                <th>Module</th>
-                <th>Required tier</th>
-                <th>Team progress</th>
-                <th class="text-end">Completion</th>
-              </tr>
-            </thead>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- AUTHORITY ---------- -->
+<section class="view" id="view-authority">
+  <div class="view-head">
+    <h1>Service authority</h1>
+    <p>What a server can put right on their own, and what needs you. Used when something has gone wrong with the food or the service.</p>
+  </div>
+
+  <div class="build-note">
+    <strong>For Tom:</strong> injectable block, per venue, never a constant. It is read by <code>marco-complaint.js</code> and <code>score-complaint.js</code>. V14 standing rule — any change to an authority or escalation rule ships to the coach and the scorer in the same commit, in matching language, or they contradict each other in front of the trainee.
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>The matrix</h2></div>
+    <div class="panel-body">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <div class="matrix-col matrix-ok">
+            <div class="matrix-head"><i class="bi bi-check-circle"></i> A server may offer this</div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">Remake the dish</label></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">Replace with something else</label></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">A complimentary drink</label></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">A gesture up to the cap below</label></div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="matrix-col matrix-esc">
+            <div class="matrix-head"><i class="bi bi-arrow-up-circle"></i> Needs your authorisation</div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">Taking an item off the bill</label></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">Comping the table</label></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">Any discount</label></div>
+            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">A refund</label></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callout callout-olive mt-4">
+        <i class="bi bi-info-circle"></i>
+        <div>
+          <strong>Passing on your decision is always allowed.</strong>
+          Once a server has come to you and you have authorised something, they may tell the guest — "the manager has said he'll take that off the bill." That is correct service and is scored as correct. It is only a failure when a server commits to it themselves.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Gesture cap</h2></div>
+    <div class="panel-body">
+      <div class="decision" id="d-cap">
+        <div class="decision-head"><span class="decision-tag">Decision 2</span> Set the cap as money or as a percentage?</div>
+        <div class="decision-body">
+          <div class="cap-row">
+            <div class="form-check"><input class="form-check-input" type="radio" name="capType" id="ct1" checked><label class="form-check-label" for="ct1">A fixed amount <span class="rec">Recommended</span></label></div>
+            <div class="input-group input-group-sm cap-input"><span class="input-group-text">€</span><input class="form-control" value="15"></div>
+          </div>
+          <div class="cap-row muted">
+            <div class="form-check"><input class="form-check-input" type="radio" name="capType" id="ct2"><label class="form-check-label" for="ct2">A percentage of the bill</label></div>
+            <div class="input-group input-group-sm cap-input"><input class="form-control" value="10" disabled><span class="input-group-text">%</span></div>
+          </div>
+          <div class="decision-why">A fixed amount, because a server has to apply it in their head with a guest waiting. "Up to fifteen euros" is a rule someone can follow at a table. "Up to 10%" is arithmetic on a bill they have not seen yet, and it quietly gives a big table more authority than a small one — which is backwards.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Who this applies to</h2></div>
+    <div class="panel-body">
+      <div class="decision" id="d-scope">
+        <div class="decision-head"><span class="decision-tag">Decision 1</span> One rule for the venue, or different limits by role?</div>
+        <div class="decision-body">
+          <div class="form-check"><input class="form-check-input" type="radio" name="authScope" id="as1" checked><label class="form-check-label" for="as1"><strong>One rule for everyone</strong> <span class="rec">Recommended for v1</span></label></div>
+          <div class="form-check"><input class="form-check-input" type="radio" name="authScope" id="as2"><label class="form-check-label" for="as2"><strong>Different limits by role</strong> — servers, supervisors, duty managers</label></div>
+          <table class="table table-basil mt-3 mb-0 table-disabled">
+            <thead><tr><th>Role</th><th>Gesture cap</th><th>May take items off the bill</th></tr></thead>
             <tbody>
-              <tr>
-                <td><span class="roman me-2">I.</span><strong>Taking a food order</strong></td>
-                <td><span class="tier-pill tier-2">TIER 2 · MEDIUM</span></td>
-                <td style="min-width:140px"><div class="progress"><div class="progress-bar" style="width:88%"></div></div></td>
-                <td class="text-end item-price">7/8</td>
-              </tr>
-              <tr>
-                <td><span class="roman me-2">II.</span><strong>Handling complaints</strong></td>
-                <td><span class="tier-pill tier-1">TIER 1 · EASY</span></td>
-                <td><div class="progress"><div class="progress-bar mid" style="width:63%"></div></div></td>
-                <td class="text-end item-price">5/8</td>
-              </tr>
-              <tr>
-                <td><span class="roman me-2">III.</span><strong>Allergies &amp; dietary</strong></td>
-                <td><span class="tier-pill tier-3">TIER 3 · DIFFICULT GUEST</span></td>
-                <td><div class="progress"><div class="progress-bar low" style="width:38%"></div></div></td>
-                <td class="text-end item-price">3/8</td>
-              </tr>
-              <tr class="text-muted">
-                <td><span class="roman me-2">IV.</span>Module 4 <span class="mono-label ms-1">(coming soon)</span></td>
-                <td>—</td>
-                <td><div class="progress"><div class="progress-bar" style="width:0%"></div></div></td>
-                <td class="text-end item-price">—</td>
-              </tr>
+              <tr><td>Server</td><td>€15</td><td>No</td></tr>
+              <tr><td>Supervisor</td><td>€30</td><td>No</td></tr>
+              <tr><td>Duty manager</td><td>€75</td><td>Yes</td></tr>
             </tbody>
           </table>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h4 class="mb-0 h5 display-font">The Brief</h4>
-          <div class="mono-label mt-1">Menu changed → staff retrain → you see it before service</div>
-        </div>
-        <div class="card-body">
-          <div class="event-row">
-            <span class="event-dot dot-gold"></span>
-            <div>
-              <div><strong>Main Menu updated to v4</strong> — Tiramisù della Casa added as a special</div>
-              <div class="event-meta">21 JUL · 3 OF 8 STAFF HAVE RETRAINED ON v4 · ALLERGENS PENDING REVIEW</div>
-            </div>
-          </div>
-          <div class="event-row">
-            <span class="event-dot dot-olive"></span>
-            <div>
-              <div><strong>Lunch Menu v2</strong> — all assigned staff trained</div>
-              <div class="event-meta">14 JUL · COMPLETE</div>
-            </div>
-          </div>
+          <div class="decision-why">Flat for v1. Per-role is the right end state, but it needs roles to be trustworthy, and right now a role is a text field a manager typed. Ship flat, watch whether anyone asks, and add the table above when someone does.</div>
         </div>
       </div>
     </div>
-
-    <!-- ======================= STAFF TAB ======================= -->
-    <div class="tab-pane fade" id="staff">
-      <div class="card">
-        <div class="card-header d-flex justify-content-between align-items-center">
-          <h4 class="mb-0 h5 display-font">Staff</h4>
-          <button class="btn btn-primary btn-sm"><i class="bi bi-person-plus me-1"></i>Invite staff</button>
-        </div>
-        <div class="card-body table-responsive">
-          <table class="table basil-table mb-0">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Role</th>
-                <th>Orders <span class="d-none d-md-inline">(I)</span></th>
-                <th>Complaints <span class="d-none d-md-inline">(II)</span></th>
-                <th>Allergies <span class="d-none d-md-inline">(III)</span></th>
-                <th class="text-end">Last trained</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><strong>Ana Ferreira</strong></td>
-                <td class="text-muted">Server</td>
-                <td><span class="tier-pill tier-3">T3 ✓</span></td>
-                <td><span class="tier-pill tier-2">T2 ✓</span></td>
-                <td><span class="tier-pill tier-3">T3 ✓</span></td>
-                <td class="text-end item-price">22 Jul</td>
-              </tr>
-              <tr>
-                <td><strong>Rui Costa</strong></td>
-                <td class="text-muted">Server</td>
-                <td><span class="tier-pill tier-2">T2 ✓</span></td>
-                <td><span class="tier-pill tier-1">T1 ✓</span></td>
-                <td>
-                  <select class="tier-select">
-                    <option>Assign tier…</option>
-                    <option>Tier 1 · Easy</option>
-                    <option>Tier 2 · Medium</option>
-                    <option selected>Tier 3 · Difficult guest</option>
-                  </select>
-                </td>
-                <td class="text-end item-price">19 Jul</td>
-              </tr>
-              <tr>
-                <td><strong>Beatriz Lopes</strong></td>
-                <td class="text-muted">Host</td>
-                <td><span class="tier-pill tier-2">T2 ✓</span></td>
-                <td><span class="tier-pill tier-2">T2 ✓</span></td>
-                <td><span class="tier-pill tier-2" style="opacity:.55">T3 · in progress</span></td>
-                <td class="text-end item-price">21 Jul</td>
-              </tr>
-              <tr>
-                <td><strong>Marco Silva</strong></td>
-                <td class="text-muted">Bartender</td>
-                <td><span class="tier-pill tier-1">T1 ✓</span></td>
-                <td><span class="tier-pill tier-1" style="opacity:.55">Not started</span></td>
-                <td><span class="tier-pill tier-1" style="opacity:.55">Not started</span></td>
-                <td class="text-end item-price">11 Jul</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-
-    <!-- ======================= ANALYTICS TAB ======================= -->
-    <div class="tab-pane fade" id="analytics">
-      <div class="row g-3 mb-3">
-        <div class="col-6 col-lg-3">
-          <div class="card h-100"><div class="card-body">
-            <div class="mono-label">Sessions this week</div>
-            <div class="num display-font fs-2">41</div>
-          </div></div>
-        </div>
-        <div class="col-6 col-lg-3">
-          <div class="card h-100"><div class="card-body">
-            <div class="mono-label">Avg score</div>
-            <div class="num display-font fs-2" style="color:var(--basil-olive)">7.8</div>
-          </div></div>
-        </div>
-        <div class="col-6 col-lg-3">
-          <div class="card h-100"><div class="card-body">
-            <div class="mono-label">Marco interventions</div>
-            <div class="num display-font fs-2" style="color:var(--basil-gold)">12</div>
-          </div></div>
-        </div>
-        <div class="col-6 col-lg-3">
-          <div class="card h-100"><div class="card-body">
-            <div class="mono-label">Top failure trigger</div>
-            <div class="fw-semibold mt-1">Guessing instead of checking</div>
-          </div></div>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-header">
-          <h4 class="mb-0 h5 display-font">Coaching feed</h4>
-          <div class="mono-label mt-1">Every Marco intervention, by staff member and turn</div>
-        </div>
-        <div class="card-body">
-          <div class="event-row">
-            <span class="event-dot dot-terracotta"></span>
-            <div>
-              <div><strong>Rui</strong> told a guest the Burrata was nut-free — allergen status is <em>unverified</em>. Marco stepped in: "check with the kitchen first."</div>
-              <div class="event-meta">ALLERGIES · TIER 3 · TURN 6 · TODAY 14:22</div>
-            </div>
-          </div>
-          <div class="event-row">
-            <span class="event-dot dot-gold"></span>
-            <div>
-              <div><strong>Marco S.</strong> missed the order recap before sending to the kitchen.</div>
-              <div class="event-meta">TAKING ORDERS · TIER 1 · TURN 9 · YESTERDAY 18:04</div>
-            </div>
-          </div>
-          <div class="event-row">
-            <span class="event-dot dot-olive"></span>
-            <div>
-              <div><strong>Ana</strong> completed Allergies Tier 3 — vague guest, changed story mid-order — with zero interventions. Score 9.1.</div>
-              <div class="event-meta">ALLERGIES · TIER 3 · COMPLETED · 22 JUL 11:40</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ======================= SETTINGS TAB ======================= -->
-    <div class="tab-pane fade" id="settings">
-      <div class="card">
-        <div class="card-header"><h4 class="mb-0 h5 display-font">Venue settings</h4></div>
-        <div class="card-body">
-          <div class="row g-4">
-            <div class="col-md-6">
-              <label class="mono-label mb-2 d-block">Allergen escalation procedure</label>
-              <select class="form-select mb-2">
-                <option selected>Check with kitchen, then confirm with manager</option>
-                <option>Manager handles all allergen orders</option>
-                <option>Custom…</option>
-              </select>
-              <textarea class="form-control" rows="3">If any allergen is unverified, the server must say: "Let me check that with our kitchen" — never reassure from memory. Duty manager signs off allergen orders.</textarea>
-            </div>
-            <div class="col-md-6">
-              <label class="mono-label mb-2 d-block">Venue allergens</label>
-              <p class="small text-muted mb-2">Beyond the standard 14, add allergens your menu needs. These apply across all training tiers.</p>
-              <div class="d-flex flex-wrap gap-2">
-                <span class="state-badge state-contains">LUPIN</span>
-                <span class="state-badge state-contains">PINE NUTS</span>
-                <button class="btn btn-sm btn-outline-primary"><i class="bi bi-plus"></i> Add</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
   </div>
+</section>
+
+<!-- ---------- PAYMENT ---------- -->
+<section class="view" id="view-payment">
+  <div class="view-head">
+    <h1>Payment policy</h1>
+    <p>Everything about the bill. This is the part of your service no AI can guess correctly.</p>
+  </div>
+
+  <div class="build-note">
+    <strong>For Tom:</strong> new entity, and the injectable block for Module 4. Highest fabrication risk in the product — service charge, cover, corkage and tipping norms vary by venue and by country, and a model will state a plausible answer with total confidence. The anti-fabrication guardrail goes into Module 4's Marco from the first line, not retrofitted.
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Charges</h2></div>
+    <div class="panel-body">
+      <div class="row g-4">
+        <div class="col-md-4">
+          <label class="form-label">Service charge</label>
+          <div class="input-group"><input class="form-control" value="10"><span class="input-group-text">%</span></div>
+          <div class="form-check form-switch mt-2"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">Added automatically</label></div>
+          <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label">Tables of 6 or more only</label></div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Cover charge</label>
+          <div class="input-group"><span class="input-group-text">€</span><input class="form-control" value="2.50"></div>
+          <div class="help">Per person. Staff need a one-line explanation of what it is for.</div>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Corkage</label>
+          <div class="input-group"><span class="input-group-text">€</span><input class="form-control" value="12.00"></div>
+          <div class="help">Per bottle.</div>
+        </div>
+        <div class="col-12">
+          <label class="form-label">How staff should explain the service charge</label>
+          <textarea class="form-control" rows="2">It's a 10% service charge that goes to the team. If you'd prefer it removed, that's absolutely fine — just say the word.</textarea>
+          <div class="help">Word this carefully. It is the single most challenged line on any bill, and it is what Tier 3 practises against.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Splitting the bill</h2></div>
+    <div class="panel-body">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label class="form-label">What you allow</label>
+          <select class="form-select">
+            <option selected>Split any way the table wants</option>
+            <option>Split evenly only</option>
+            <option>Split by item</option>
+            <option>No splits</option>
+          </select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Maximum cards</label>
+          <input class="form-control" value="4">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Tipping</label>
+          <select class="form-select">
+            <option selected>Not expected, welcome</option>
+            <option>Expected, 5–10%</option>
+            <option>Never accepted</option>
+          </select>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Accepted payment</label>
+          <div class="chip-row">
+            <button class="chip active">Card</button>
+            <button class="chip active">Cash</button>
+            <button class="chip active">Apple / Google Pay</button>
+            <button class="chip">Multibanco</button>
+            <button class="chip">Vouchers</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Who can change a bill</h2></div>
+    <div class="panel-body">
+      <table class="table table-basil mb-0">
+        <thead><tr><th>Action</th><th style="width:34%">Who</th></tr></thead>
+        <tbody>
+          <tr><td>Remove the service charge on request</td><td><select class="form-select form-select-sm"><option selected>Any server</option><option>Supervisor</option><option>Manager only</option></select></td></tr>
+          <tr><td>Remove a cover charge</td><td><select class="form-select form-select-sm"><option>Any server</option><option selected>Supervisor</option><option>Manager only</option></select></td></tr>
+          <tr><td>Correct a wrongly charged item</td><td><select class="form-select form-select-sm"><option>Any server</option><option selected>Supervisor</option><option>Manager only</option></select></td></tr>
+          <tr><td>Adjust a disputed line item</td><td><select class="form-select form-select-sm"><option>Any server</option><option>Supervisor</option><option selected>Manager only</option></select></td></tr>
+        </tbody>
+      </table>
+      <div class="callout callout-terracotta mt-3">
+        <i class="bi bi-signpost-split"></i>
+        <div>
+          <strong>Where the modules divide.</strong>
+          If the food or the service was wrong, that is complaints. If the bill or the charge is wrong, that is payment. A server who reaches for a comp on a service-charge dispute is being trained on the wrong module.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- STAFF ---------- -->
+<section class="view" id="view-staff">
+  <div class="view-head">
+    <h1>Staff</h1>
+    <p>Who trains on what, and at what level of difficulty.</p>
+  </div>
+
+  <div class="toolbar">
+    <div class="toolbar-left">
+      <div class="search-wrap"><i class="bi bi-search"></i><input class="form-control" placeholder="Search staff"></div>
+    </div>
+    <div class="toolbar-right">
+      <button class="btn btn-ghost btn-sm" data-toast="Bulk assign — pick a module and a tier, apply to selected staff."><i class="bi bi-people"></i> Assign a tier</button>
+      <button class="btn btn-primary btn-sm" data-toast="Staff join by link or QR code — no email needed."><i class="bi bi-person-plus"></i> Invite</button>
+    </div>
+  </div>
+
+  <div class="panel p-0">
+    <table class="table table-basil mb-0" id="staffTable">
+      <thead>
+        <tr><th>Name</th><th>Role</th><th>Serving</th><th>Allergies</th><th>Complaints</th><th>Payment</th><th>Last trained</th></tr>
+      </thead>
+      <tbody id="staffBody"></tbody>
+    </table>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>How staff reach the harder tiers</h2></div>
+    <div class="panel-body">
+      <div class="tier-legend">
+        <div class="tier-item"><span class="tier-pill t1">Tier 1</span> Orders clearly, one thing at a time</div>
+        <div class="tier-item"><span class="tier-pill t2">Tier 2</span> Modifications, questions, mild ambiguity</div>
+        <div class="tier-item"><span class="tier-pill t3">Tier 3</span> Off-menu, vague, impatient, pushes back</div>
+      </div>
+
+      <div class="decision" id="d-unlock">
+        <div class="decision-head"><span class="decision-tag">Decision 3</span> Who decides when someone moves up?</div>
+        <div class="decision-body">
+          <div class="form-check"><input class="form-check-input" type="radio" name="unlock" id="ul1"><label class="form-check-label" for="ul1"><strong>By score</strong> — pass the tier, the next one opens</label></div>
+          <div class="form-check"><input class="form-check-input" type="radio" name="unlock" id="ul2"><label class="form-check-label" for="ul2"><strong>Manager assigns</strong> — nothing opens unless you open it</label></div>
+          <div class="form-check"><input class="form-check-input" type="radio" name="unlock" id="ul3" checked><label class="form-check-label" for="ul3"><strong>Both</strong> — score opens the next tier automatically, you can push anyone to any tier at any time <span class="rec">Recommended</span></label></div>
+          <div class="cap-row mt-3">
+            <label class="form-label mb-0">Pass mark that opens the next tier</label>
+            <div class="input-group input-group-sm cap-input"><input class="form-control" value="7"><span class="input-group-text">/ 10</span></div>
+          </div>
+          <div class="decision-why">Both, and the reason is who is actually using this. Score-gating alone means a shy server sits on Tier 1 for a month. Manager-only means nothing progresses on a busy week because nobody logged in. Automatic progression handles the ordinary case; the override handles the manager who knows a new starter is going on a Friday section and needs Tier 3 tonight.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- THE BRIEF ---------- -->
+<section class="view" id="view-brief">
+  <div class="view-head">
+    <h1>The Brief</h1>
+    <p>The menu changed. Make sure the floor knows it before service.</p>
+  </div>
+
+  <div class="build-note">
+    <strong>For Tom:</strong> this is the flagship feature and it lives or dies on one join — menu version to session completion. A brief is not "a notification", it is a training requirement attached to a specific version of the menu, and completion has to be answerable per staff member against that version.
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>What changed</h2><span class="count-pill">since v13</span></div>
+    <div class="panel-body">
+      <ul class="change-list">
+        <li><span class="change-tag added">Added</span> Vongole e ’Nduja <span class="change-note">special — allergens unverified</span></li>
+        <li><span class="change-tag changed">Changed</span> Ortolana <span class="change-note">goat cheese replaced with vegan feta</span></li>
+        <li><span class="change-tag changed">Changed</span> Margherita <span class="change-note">£14.99 → £15.49</span></li>
+        <li><span class="change-tag removed">Removed</span> Hawaiian</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Send the brief</h2></div>
+    <div class="panel-body">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label class="form-label">Who needs it</label>
+          <select class="form-select"><option selected>All floor staff (11)</option><option>Servers only (8)</option><option>Selected staff</option></select>
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Complete by</label>
+          <input class="form-control" type="time" value="17:30">
+        </div>
+        <div class="col-md-3">
+          <label class="form-label">Practice required</label>
+          <select class="form-select"><option selected>Quiz only</option><option>Quiz and one conversation</option><option>Read only</option></select>
+        </div>
+        <div class="col-12">
+          <label class="form-label">Add a note</label>
+          <textarea class="form-control" rows="2">The Ortolana is vegan now — please don't call it vegetarian. Vongole special has clams, allergens not confirmed yet, check with the pass every time.</textarea>
+        </div>
+      </div>
+      <div class="d-flex gap-2 mt-4">
+        <button class="btn btn-primary" data-toast="Sent to 11 staff. Completion appears below as they finish.">Send to 11 staff</button>
+        <button class="btn btn-ghost" data-toast="Preview — this is what lands on a server's phone.">Preview</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Ready for tonight</h2><span class="count-pill">7 of 11</span></div>
+    <div class="panel-body">
+      <div class="progress-b mb-4"><div class="progress-b-fill" style="width:64%"></div></div>
+      <table class="table table-basil mb-0">
+        <thead><tr><th>Staff</th><th>Brief</th><th>On shift</th><th>Completed</th></tr></thead>
+        <tbody>
+          <tr><td>Ana Ferreira</td><td><span class="chip-status done">Done</span></td><td>17:00</td><td>14:12</td></tr>
+          <tr><td>Bikash Thapa</td><td><span class="chip-status done">Done</span></td><td>17:00</td><td>13:48</td></tr>
+          <tr><td>Oleksii Marchenko</td><td><span class="chip-status open">Opened</span></td><td>17:00</td><td>—</td></tr>
+          <tr><td>Sofia Ramos</td><td><span class="chip-status not">Not started</span></td><td>18:00</td><td>—</td></tr>
+          <tr><td>Tiago Nunes</td><td><span class="chip-status not">Not started</span></td><td>17:30</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- REPORTS ---------- -->
+<section class="view" id="view-reports">
+  <div class="view-head">
+    <h1>Reports</h1>
+    <p>Where the floor is strong, and where it is guessing.</p>
+  </div>
+
+  <div class="stat-row mb-4">
+    <div class="stat"><div class="stat-num">48</div><div class="stat-label">sessions this week</div></div>
+    <div class="stat"><div class="stat-num">7.4</div><div class="stat-label">average score</div></div>
+    <div class="stat"><div class="stat-num">11</div><div class="stat-label">staff trained</div></div>
+    <div class="stat"><div class="stat-num accent">9</div><div class="stat-label">times a server guessed</div></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>By module</h2></div>
+    <div class="panel-body">
+      <table class="table table-basil mb-0">
+        <thead><tr><th>Module</th><th>Sessions</th><th>Average</th><th>Weakest point</th></tr></thead>
+        <tbody>
+          <tr><td>Serving the menu</td><td>21</td><td><span class="score good">8.1</span></td><td>Describing dishes without reading the menu aloud</td></tr>
+          <tr><td>Allergies &amp; dietary needs</td><td>14</td><td><span class="score ok">7.0</span></td><td>Confirming back to the guest before sending the order</td></tr>
+          <tr><td>Handling complaints</td><td>13</td><td><span class="score low">6.6</span></td><td>Escalating before offering anything</td></tr>
+          <tr><td>Payment &amp; farewell</td><td>—</td><td><span class="score none">—</span></td><td>Not yet released</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>When Marco stepped in</h2></div>
+    <div class="panel-body">
+      <div class="build-note">
+        <strong>For Tom:</strong> this table is the coaching events table — one row per intervention, with session, staff, venue, module, tier and turn index. It is cheap to write now and impossible to backfill.
+      </div>
+      <table class="table table-basil mb-0">
+        <thead><tr><th>What went wrong</th><th>Times</th><th>Most often</th></tr></thead>
+        <tbody>
+          <tr><td>Guessed instead of checking</td><td>9</td><td>Allergies · Tier 3</td></tr>
+          <tr><td>Promised something above their authority</td><td>5</td><td>Complaints · Tier 2</td></tr>
+          <tr><td>Said something the menu does not say</td><td>4</td><td>Serving · Tier 2</td></tr>
+          <tr><td>Left the guest without a next step</td><td>3</td><td>Complaints · Tier 3</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>By staff member</h2><button class="btn btn-ghost btn-sm" data-toast="Exports as CSV."><i class="bi bi-download"></i> Export</button></div>
+    <div class="panel-body">
+      <table class="table table-basil mb-0">
+        <thead><tr><th>Name</th><th>Sessions</th><th>Average</th><th>Trend</th><th>Needs work on</th></tr></thead>
+        <tbody>
+          <tr><td>Ana Ferreira</td><td>9</td><td><span class="score good">8.6</span></td><td class="trend up"><i class="bi bi-arrow-up-right"></i> +0.7</td><td>—</td></tr>
+          <tr><td>Bikash Thapa</td><td>7</td><td><span class="score ok">7.2</span></td><td class="trend up"><i class="bi bi-arrow-up-right"></i> +1.1</td><td>Allergen confirmation</td></tr>
+          <tr><td>Sofia Ramos</td><td>4</td><td><span class="score low">6.1</span></td><td class="trend flat"><i class="bi bi-arrow-right"></i> 0.0</td><td>Escalating early enough</td></tr>
+          <tr><td>Tiago Nunes</td><td>2</td><td><span class="score low">5.4</span></td><td class="trend down"><i class="bi bi-arrow-down-right"></i> −0.3</td><td>Guessing on unverified dishes</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ---------- ACCOUNT ---------- -->
+<section class="view" id="view-account">
+  <div class="view-head">
+    <h1>Plan &amp; users</h1>
+    <p>Your venues, your billing, and who can change what.</p>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Plan</h2><span class="pill-founding">Founding venue</span></div>
+    <div class="panel-body">
+      <div class="plan-row">
+        <div><div class="plan-price">$149<span>/venue/month</span></div><div class="help">Locked for as long as you stay with us.</div></div>
+        <button class="btn btn-ghost btn-sm" data-toast="Billing is handled by Stripe.">Manage billing</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Venues</h2><button class="btn btn-ghost btn-sm" data-toast="Adding a venue creates a separate menu and staff list."><i class="bi bi-plus-lg"></i> Add venue</button></div>
+    <div class="panel-body">
+      <table class="table table-basil mb-0">
+        <thead><tr><th>Venue</th><th>Menu</th><th>Staff</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td class="parent-row"><i class="bi bi-diagram-2"></i> Forno Group</td><td>—</td><td>—</td><td><span class="chip-status done">Group account</span></td></tr>
+          <tr><td class="child-row">Il Forno Trattoria — Lagos</td><td>Own menu · v14</td><td>11</td><td><span class="chip-status done">Active</span></td></tr>
+          <tr><td class="child-row">Il Forno Trattoria — Portimão</td><td>Own menu · v9</td><td>7</td><td><span class="chip-status done">Active</span></td></tr>
+          <tr><td class="child-row">Il Forno Beach Club</td><td>Own menu · v3</td><td>4</td><td><span class="chip-status open">Dormant — winter</span></td></tr>
+        </tbody>
+      </table>
+      <div class="build-note mt-3">
+        <strong>For Tom:</strong> venues under a group each carry their own menu today. Shared-menu chains are an unresolved commercial question, so build the association loose enough that one menu can serve several venues later without a migration.
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-head"><h2>Who can change what</h2><button class="btn btn-ghost btn-sm" data-toast="Invite by email."><i class="bi bi-person-plus"></i> Invite</button></div>
+    <div class="panel-body">
+      <table class="table table-basil mb-0">
+        <thead><tr><th>Name</th><th>Access</th><th>Venues</th></tr></thead>
+        <tbody>
+          <tr><td>Dan Hayes</td><td><span class="chip-status done">Owner</span></td><td>All</td></tr>
+          <tr><td>Marta Silva</td><td><span class="chip-status open">Manager</span></td><td>Lagos</td></tr>
+          <tr><td>Rui Costa</td><td><span class="chip-status open">Manager</span></td><td>Portimão</td></tr>
+          <tr><td>Chef Paolo</td><td><span class="chip-status not">Menu &amp; allergens only</span></td><td>All</td></tr>
+        </tbody>
+      </table>
+      <div class="help mt-3">A kitchen login that can confirm allergens but cannot see staff scores is worth having. It is the fastest route to a fully confirmed menu.</div>
+    </div>
+  </div>
+</section>
+
 </main>
 
-<!-- ======================= KNOWLEDGE MODAL (three-state allergens) ======================= -->
-<div class="modal fade" id="knowledgeModal" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Dish knowledge — Margherita</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-
-        <label class="mono-label mb-1 d-block">Guest description</label>
-        <textarea class="form-control mb-3" rows="2">Our classic — sweet San Marzano tomatoes, creamy fior di latte mozzarella and fresh basil on a blistered sourdough base.</textarea>
-
-        <label class="mono-label mb-1 d-block">Allergens — three states, defaults to unverified</label>
-        <p class="small text-muted mb-2">"Free from" is a claim. "Unverified" means staff check with the kitchen. They are not the same thing.</p>
-
-        <div class="mb-3" id="allergenList">
-          <div class="allergen-row"><span>Gluten</span>
-            <div class="tri-state" data-allergen="gluten">
-              <button type="button" class="sel-contains">CONTAINS</button><button type="button">FREE FROM</button><button type="button">UNVERIFIED</button>
-            </div>
-          </div>
-          <div class="allergen-row"><span>Dairy</span>
-            <div class="tri-state" data-allergen="dairy">
-              <button type="button" class="sel-contains">CONTAINS</button><button type="button">FREE FROM</button><button type="button">UNVERIFIED</button>
-            </div>
-          </div>
-          <div class="allergen-row"><span>Nuts</span>
-            <div class="tri-state" data-allergen="nuts">
-              <button type="button">CONTAINS</button><button type="button" class="sel-free">FREE FROM</button><button type="button">UNVERIFIED</button>
-            </div>
-          </div>
-          <div class="allergen-row"><span>Egg</span>
-            <div class="tri-state" data-allergen="egg">
-              <button type="button">CONTAINS</button><button type="button">FREE FROM</button><button type="button" class="sel-unverified">UNVERIFIED</button>
-            </div>
-          </div>
-          <div class="allergen-row"><span>Sulphites</span>
-            <div class="tri-state" data-allergen="sulphites">
-              <button type="button">CONTAINS</button><button type="button">FREE FROM</button><button type="button" class="sel-unverified">UNVERIFIED</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label class="mono-label mb-1 d-block">Gluten-free option available</label>
-            <div class="form-check form-switch"><input class="form-check-input" type="checkbox" checked><label class="form-check-label small">Yes — separate prep, +€2</label></div>
-          </div>
-          <div class="col-md-6">
-            <label class="mono-label mb-1 d-block">Pairs well with</label>
-            <input type="text" class="form-control" value="House Chianti, Peroni">
-          </div>
-        </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Save knowledge</button>
-      </div>
-    </div>
+<!-- ============ DECISIONS PANEL ============ -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="decisionsPanel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title">Open decisions</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+  </div>
+  <div class="offcanvas-body">
+    <p class="help mb-4">Each one is drawn in the mockup with a recommendation already selected. Approve what you agree with, change what you don't — then it is settled and Tom can build against it.</p>
+    <ol class="decision-index" id="decisionIndex">
+      <li data-target="authority" data-flag="d-scope"><strong>Authority scope</strong><span>One rule, or limits by role</span></li>
+      <li data-target="authority" data-flag="d-cap"><strong>Gesture cap</strong><span>Money or percentage</span></li>
+      <li data-target="staff" data-flag="d-unlock"><strong>Tier unlock</strong><span>Score, manager, or both</span></li>
+      <li data-target="safety" data-flag="d-quiz"><strong>Quiz sourcing</strong><span>Hidden notes, matrix, or both</span></li>
+      <li data-target="safety" data-flag="d-review"><strong>Unreviewed dishes</strong><span>Allow with escalate, or block</span></li>
+      <li data-target="safety" data-flag="d-metric"><strong>Menu confidence</strong><span>Show it, and to whom</span></li>
+      <li data-target="menu" data-flag="d-notes"><strong>Modify notes</strong><span>Per allergen, or one per dish</span></li>
+    </ol>
   </div>
 </div>
 
-<!-- ======================= NEW MENU MODAL ======================= -->
-<div class="modal fade" id="newMenuModal" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">New menu</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body">
-        <label class="mono-label mb-1 d-block">Menu name</label>
-        <input type="text" class="form-control mb-3" placeholder="e.g. Summer Menu">
-        <label class="mono-label mb-1 d-block">Status</label>
-        <select class="form-select"><option selected>Active</option><option>Inactive</option></select>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Create menu</button>
-      </div>
-    </div>
-  </div>
-</div>
+<div class="toast-host" id="toastHost"></div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="js/dashboard.js"></script>
